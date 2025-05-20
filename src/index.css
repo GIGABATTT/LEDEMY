@@ -103,14 +103,43 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Alike', serif;
 }
 
-/* Button styles */
-button {
-  background-color: #010177;
-  transition: background-color 0.3s ease;
+/* Page gradient background */
+.bg-page-gradient {
+  background: linear-gradient(to bottom, #000077 0%, #FFFFFF 100%);
 }
 
-button:hover {
-  background-color: #01015e;
+/* Button styles */
+.btn-gradient {
+  background: linear-gradient(to bottom, #040479 0%, #8484F0 100%);
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(to bottom, #040479 10%, #9090F5 100%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-gradient:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Button click animation */
+@keyframes button-click {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.btn-click-animation:active {
+  animation: button-click 0.3s ease;
 }
 
 /* Input styles */

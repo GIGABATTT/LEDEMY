@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegistrationForm } from '../components/auth/RegistrationForm';
@@ -31,7 +32,7 @@ const Index: React.FC = () => {
   const handleClosePlan = () => setCurrentScreen(AppScreen.DASHBOARD);
 
   return (
-    <div className="min-h-screen bg-[#010177] flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-page-gradient flex flex-col items-center justify-center p-4">
       <style>{fontStyles}</style>
       
       {currentScreen === AppScreen.LOGIN && (
