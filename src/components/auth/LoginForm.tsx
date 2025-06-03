@@ -10,9 +10,9 @@ interface LoginFormProps {
 
 export const LoginForm: React.FC<LoginFormProps> = ({ onRegister }) => {
   return (
-    <div className="w-full max-w-[412px] mx-auto">
-      <div>
-        <div>
+    <div className="w-full max-w-[412px] mx-auto flex flex-col items-center">
+      <div className="w-full flex flex-col items-center">
+        <div className="mb-5">
           <svg 
             width="38" 
             height="38" 
@@ -29,7 +29,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onRegister }) => {
         
         <AppLogo className="mx-0 my-10" />
         
-        <form>
+        <form className="w-full flex flex-col items-center">
           <FormInput 
             type="email" 
             placeholder="Endereço de e-mail" 

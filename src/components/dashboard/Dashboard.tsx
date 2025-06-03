@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { DashboardCard } from '../ui/DashboardCard';
 import { InfoCard } from '../ui/InfoCard';
@@ -37,11 +36,11 @@ export const Dashboard: React.FC = () => {
         </div>
       </header>
       
-      <div className="text-white text-[32px] font-bold m-5 max-sm:text-2xl bg-[#00007788] p-3 rounded-lg shadow-md">
+      <div className="text-white text-[32px] font-bold text-center m-5 max-sm:text-2xl bg-[#00007788] p-3 rounded-lg shadow-md">
         Seja bem vindo, Geralt de Rívia!
       </div>
       
-      <div className="flex flex-col gap-5 p-5">
+      <div className="flex flex-col gap-5 p-5 items-center">
         <DashboardCard
           icon={
             <svg 
@@ -119,7 +118,7 @@ export const Dashboard: React.FC = () => {
         Como utilizar?
       </div>
       
-      <div className="flex flex-col gap-5 p-5">
+      <div className="flex flex-col gap-5 p-5 items-center">
         <InfoCard>
           Descubra a provável patologia que pode estar afetando você, e
           saiba como seguir em frente

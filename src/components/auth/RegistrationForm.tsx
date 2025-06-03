@@ -11,9 +11,9 @@ interface RegistrationFormProps {
 
 export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onContinue }) => {
   return (
-    <div className="w-full max-w-[412px] mx-auto">
-      <div>
-        <div className="cursor-pointer" onClick={onBack}>
+    <div className="w-full max-w-[412px] mx-auto flex flex-col items-center">
+      <div className="w-full flex flex-col items-center">
+        <div className="self-start cursor-pointer" onClick={onBack}>
           <svg 
             width="38" 
             height="38" 
@@ -30,7 +30,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onCo
         
         <AppLogo className="mx-0 my-10" />
         
-        <form>
+        <form className="w-full flex flex-col items-center">
           <FormInput 
             type="text" 
             placeholder="Nome" 

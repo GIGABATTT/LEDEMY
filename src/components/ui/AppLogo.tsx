@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 interface AppLogoProps {
@@ -6,9 +7,9 @@ interface AppLogoProps {
 
 export const AppLogo: React.FC<AppLogoProps> = ({ className = '' }) => {
   return (
-    <div className={`flex items-center ${className}`}>
-      <div className="text-white text-[64px]">LEDEMY</div>
-      <div>
+    <div className={`flex items-center justify-center ${className}`}>
+      <div className="text-white text-[64px] font-bold">LEDEMY</div>
+      <div className="ml-2">
         <svg 
           width="61" 
           height="60" 

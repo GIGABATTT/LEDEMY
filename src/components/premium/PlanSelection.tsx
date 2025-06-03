@@ -11,9 +11,9 @@ interface PlanSelectionProps {
 
 export const PlanSelection: React.FC<PlanSelectionProps> = ({ onClose, onSelectPlan, onSkip }) => {
   return (
-    <div className="w-full max-w-[412px] mx-auto">
-      <div>
-        <div className="cursor-pointer" onClick={onClose}>
+    <div className="w-full max-w-[412px] mx-auto flex flex-col items-center">
+      <div className="w-full flex flex-col items-center">
+        <div className="self-start cursor-pointer" onClick={onClose}>
           <svg 
             width="31" 
             height="31" 
@@ -39,7 +39,7 @@ export const PlanSelection: React.FC<PlanSelectionProps> = ({ onClose, onSelectP
           Gostaria de melhorar sua experiencia?
         </div>
         
-        <div className="flex justify-around mx-0 my-5">
+        <div className="flex justify-center gap-5 mx-0 my-5 max-sm:flex-col max-sm:items-center">
           <PlanCard
             title="PREMIUM"
             price="11"
