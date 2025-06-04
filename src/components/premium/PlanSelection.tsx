@@ -14,7 +14,7 @@ export const PlanSelection: React.FC<PlanSelectionProps> = ({ onClose, onSelectP
   return (
     <div className="w-full max-w-[412px] mx-auto flex flex-col items-center min-h-screen justify-center px-4">
       <div className="w-full flex flex-col items-center bg-gradient-to-b from-transparent to-black/10 rounded-2xl p-6 backdrop-blur-sm">
-        <div className="self-start cursor-pointer mb-8" onClick={onClose}>
+        <div className="self-start cursor-pointer mb-8 hover:scale-110 transition-transform duration-200" onClick={onClose}>
           <svg 
             width="31" 
             height="31" 
@@ -38,11 +38,11 @@ export const PlanSelection: React.FC<PlanSelectionProps> = ({ onClose, onSelectP
         
         <div className="text-white text-[36px] font-bold text-center mb-12 max-sm:text-2xl leading-tight">
           Gostaria de melhorar sua <br />
-          <span className="text-yellow-300">experiência</span>?
+          <span className="text-blue-300">experiência</span>?
         </div>
         
         <div className="flex justify-center gap-6 mb-12 max-sm:flex-col max-sm:items-center max-sm:gap-4">
-          <div className="transform hover:scale-105 transition-transform duration-300">
+          <div className="transform hover:scale-105 transition-all duration-500 hover:shadow-xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
             <PlanCard
               title="PREMIUM"
               price="11"
@@ -51,7 +51,7 @@ export const PlanSelection: React.FC<PlanSelectionProps> = ({ onClose, onSelectP
             />
           </div>
           
-          <div className="transform hover:scale-105 transition-transform duration-300">
+          <div className="transform hover:scale-105 transition-all duration-500 hover:shadow-xl animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <PlanCard
               title="FAMILIAR"
               price="19"

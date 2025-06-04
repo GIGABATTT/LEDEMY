@@ -22,6 +22,18 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onCo
   const [localPathology, setLocalPathology] = useState(userPathology);
   const [localEmergencyContact, setLocalEmergencyContact] = useState(userEmergencyContact);
   const [localAddress, setLocalAddress] = useState(userAddress);
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newName = e.target.value;
+    setLocalName(newName);
+    
+    // Easter egg check
+    if (newName.toLowerCase() === "let me be a hero") {
+      setShowEasterEgg(true);
+      setTimeout(() => setShowEasterEgg(false), 3000);
+    }
+  };
 
   const handleContinue = () => {
     setUserName(localName);
@@ -64,7 +76,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onCo
             type="text" 
             placeholder="Nome" 
             value={localName}
-            onChange={(e) => setLocalName(e.target.value)}
+            onChange={handleNameChange}
           />
           <FormInput 
             type="text" 
@@ -101,6 +113,19 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onCo
           Continuar
         </ActionButton>
       </div>
+
+      {/* Easter Egg Popup */}
+      {showEasterEgg && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white p-8 rounded-2xl shadow-2xl transform animate-scale-in">
+            <div className="text-center">
+              <div className="text-4xl mb-4">😂</div>
+              <div className="text-2xl font-bold text-gray-800 mb-2">vsf KKKKKKK</div>
+              <div className="text-gray-600">Easter egg encontrado!</div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
