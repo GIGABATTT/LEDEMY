@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { DashboardCard } from '../ui/DashboardCard';
 import { InfoCard } from '../ui/InfoCard';
@@ -137,4 +138,77 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin }) => {
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 
+              <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM12 8C13.66 8 15 6.66 15 5C15 3.34 13.66 2 12 2C10.34 2 9 3.34 9 5C9 6.66 10.34 8 12 8Z" 
+              fill="#01015E"
+              />
+            </svg>
+            <div className="text-left">
+              <h3 className="font-semibold text-lg mb-2">1. Pesquise seus sintomas</h3>
+              <p className="text-sm">Digite os sintomas que está sentindo e receba informações relevantes.</p>
+            </div>
+          </div>
+        </InfoCard>
+
+        <InfoCard>
+          <div className="flex items-center gap-4">
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V11H13V17ZM13 9H11V7H13V9Z" 
+              fill="#01015E"
+              />
+            </svg>
+            <div className="text-left">
+              <h3 className="font-semibold text-lg mb-2">2. Configure lembretes</h3>
+              <p className="text-sm">Defina horários para medicamentos e consultas médicas.</p>
+            </div>
+          </div>
+        </InfoCard>
+
+        <InfoCard>
+          <div className="flex items-center gap-4">
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M19 7H18V6C18 3.79 16.21 2 14 2H10C7.79 2 6 3.79 6 6V7H5C3.9 7 3 7.9 3 9V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V9C21 7.9 20.1 7 19 7ZM8 6C8 4.9 8.9 4 10 4H14C15.1 4 16 4.9 16 6V7H8V6ZM12 17C10.9 17 10 16.1 10 15C10 13.9 10.9 13 12 13C13.1 13 14 13.9 14 15C14 16.1 13.1 17 12 17Z" 
+              fill="#01015E"
+              />
+            </svg>
+            <div className="text-left">
+              <h3 className="font-semibold text-lg mb-2">3. Encontre farmácias</h3>
+              <p className="text-sm">Localize farmácias próximas à sua localização atual.</p>
+            </div>
+          </div>
+        </InfoCard>
+
+        <InfoCard>
+          <div className="flex items-center gap-4">
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.08 14.82 16.43 14.93C17.55 15.3 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z" 
+              fill="#01015E"
+              />
+            </svg>
+            <div className="text-left">
+              <h3 className="font-semibold text-lg mb-2">4. Contatos de emergência</h3>
+              <p className="text-sm">Mantenha seus contatos de emergência sempre acessíveis.</p>
+            </div>
+          </div>
+        </InfoCard>
+      </div>
+    </div>
+  );
+};
