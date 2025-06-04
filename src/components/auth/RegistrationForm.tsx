@@ -5,6 +5,7 @@ import { ActionButton } from '../ui/ActionButton';
 import { LinkText } from '../ui/LinkText';
 import { AppLogo } from '../ui/AppLogo';
 import { useUser } from '../../contexts/UserContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface RegistrationFormProps {
   onBack: () => void;
@@ -12,6 +13,7 @@ interface RegistrationFormProps {
 }
 
 export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onContinue }) => {
+  const { t } = useLanguage();
   const { 
     userName, userAge, userPathology, userEmergencyContact, userAddress,
     setUserName, setUserAge, setUserPathology, setUserEmergencyContact, setUserAddress 
@@ -31,7 +33,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onCo
     // Easter egg check
     if (newName.toLowerCase() === "let me be a hero") {
       setShowEasterEgg(true);
-      setTimeout(() => setShowEasterEgg(false), 3000);
+      setTimeout(() => setShowEasterEgg(false), 4000);
     }
   };
 
@@ -74,55 +76,77 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onCo
         <form className="w-full flex flex-col items-center">
           <FormInput 
             type="text" 
-            placeholder="Nome" 
+            placeholder={t.namePlaceholder}
             value={localName}
             onChange={handleNameChange}
           />
           <FormInput 
             type="text" 
-            placeholder="Idade" 
+            placeholder={t.agePlaceholder}
             value={localAge}
             onChange={(e) => setLocalAge(e.target.value)}
           />
           <FormInput 
             type="text" 
-            placeholder="Patologia (opicional)" 
+            placeholder={t.pathologyPlaceholder}
             value={localPathology}
             onChange={(e) => setLocalPathology(e.target.value)}
           />
           <FormInput 
             type="text" 
-            placeholder="Contato de emergência" 
+            placeholder={t.emergencyContactPlaceholder}
             value={localEmergencyContact}
             onChange={(e) => setLocalEmergencyContact(e.target.value)}
           />
           <FormInput 
             type="text" 
-            placeholder="Endereço" 
+            placeholder={t.addressPlaceholder}
             value={localAddress}
             onChange={(e) => setLocalAddress(e.target.value)}
           />
         </form>
         
         <div className="flex flex-col items-center mx-0 my-5">
-          <LinkText href="#">Afinal, oque é a ledemy?</LinkText>
-          <LinkText href="#">Termos de serviço</LinkText>
+          <LinkText href="#">{t.whatIsLedemy}</LinkText>
+          <LinkText href="#">{t.termsOfService}</LinkText>
         </div>
         
         <ActionButton onClick={handleContinue}>
-          Continuar
+          {t.continueButton}
         </ActionButton>
       </div>
 
-      {/* Easter Egg Popup */}
+      {/* Easter Egg Popup Super Divertido */}
       {showEasterEgg && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white p-8 rounded-2xl shadow-2xl transform animate-scale-in">
-            <div className="text-center">
-              <div className="text-4xl mb-4">😂</div>
-              <div className="text-2xl font-bold text-gray-800 mb-2">vsf KKKKKKK</div>
-              <div className="text-gray-600">Easter egg encontrado!</div>
+          <div className="bg-gradient-to-br from-yellow-300 via-orange-400 to-red-500 p-8 rounded-3xl shadow-2xl transform animate-bounce border-4 border-yellow-400 relative overflow-hidden">
+            {/* Efeito de brilho */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 animate-pulse"></div>
+            
+            {/* Explosão de confetes */}
+            <div className="absolute -top-4 -left-4 text-yellow-300 animate-spin text-6xl">🎉</div>
+            <div className="absolute -top-4 -right-4 text-red-300 animate-bounce text-5xl">✨</div>
+            <div className="absolute -bottom-4 -left-4 text-blue-300 animate-pulse text-4xl">💫</div>
+            <div className="absolute -bottom-4 -right-4 text-green-300 animate-bounce text-6xl">🎊</div>
+            
+            <div className="text-center relative z-10">
+              <div className="text-8xl mb-4 animate-bounce">🦸‍♂️</div>
+              <div className="text-4xl font-black text-white mb-4 animate-pulse drop-shadow-lg">
+                vsf KKKKKKK
+              </div>
+              <div className="text-xl text-white font-bold bg-black/30 px-4 py-2 rounded-full animate-pulse">
+                🎯 Easter egg encontrado! 🎯
+              </div>
+              <div className="text-lg text-yellow-100 mt-2 animate-bounce">
+                Você é realmente um herói! 🌟
+              </div>
             </div>
+            
+            {/* Partículas flutuantes */}
+            <div className="absolute top-1/4 left-1/4 text-3xl animate-ping">⭐</div>
+            <div className="absolute top-3/4 right-1/4 text-2xl animate-bounce delay-300">🚀</div>
+            <div className="absolute top-1/2 left-1/6 text-4xl animate-pulse delay-500">💪</div>
+            <div className="absolute top-1/3 right-1/6 text-3xl animate-spin delay-700">🎭</div>
           </div>
         </div>
       )}

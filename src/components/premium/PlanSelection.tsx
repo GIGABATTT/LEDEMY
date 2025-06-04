@@ -3,6 +3,7 @@ import React from 'react';
 import { ActionButton } from '../ui/ActionButton';
 import { LinkText } from '../ui/LinkText';
 import { PlanCard } from '../ui/PlanCard';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface PlanSelectionProps {
   onClose: () => void;
@@ -11,6 +12,8 @@ interface PlanSelectionProps {
 }
 
 export const PlanSelection: React.FC<PlanSelectionProps> = ({ onClose, onSelectPlan, onSkip }) => {
+  const { t } = useLanguage();
+
   return (
     <div className="w-full max-w-[412px] mx-auto flex flex-col items-center min-h-screen justify-center px-4">
       <div className="w-full flex flex-col items-center bg-gradient-to-b from-transparent to-black/10 rounded-2xl p-6 backdrop-blur-sm">
@@ -37,37 +40,37 @@ export const PlanSelection: React.FC<PlanSelectionProps> = ({ onClose, onSelectP
         </div>
         
         <div className="text-white text-[36px] font-bold text-center mb-12 max-sm:text-2xl leading-tight">
-          Gostaria de melhorar sua <br />
-          <span className="text-blue-300">experiência</span>?
+          {t.improveExperience} <br />
+          <span className="text-purple-300">{t.experience}</span>?
         </div>
         
         <div className="flex justify-center gap-6 mb-12 max-sm:flex-col max-sm:items-center max-sm:gap-4">
-          <div className="transform hover:scale-105 transition-all duration-500 hover:shadow-xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <div className="transform hover:scale-105 transition-all duration-500 hover:shadow-2xl animate-fade-in hover:rotate-1" style={{ animationDelay: '0.2s' }}>
             <PlanCard
-              title="PREMIUM"
+              title={t.premiumPlan}
               price="11"
               cents="90"
-              description="Individual"
+              description={t.individual}
             />
           </div>
           
-          <div className="transform hover:scale-105 transition-all duration-500 hover:shadow-xl animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          <div className="transform hover:scale-105 transition-all duration-500 hover:shadow-2xl animate-fade-in hover:-rotate-1" style={{ animationDelay: '0.4s' }}>
             <PlanCard
-              title="FAMILIAR"
+              title={t.familyPlan}
               price="19"
               cents="90"
-              description="Até 3 pessoas"
+              description={t.upToThreePeople}
             />
           </div>
         </div>
         
         <div className="flex flex-col items-center gap-4">
           <ActionButton onClick={onSelectPlan}>
-            Escolher plano
+            {t.choosePlan}
           </ActionButton>
           
           <LinkText href="#" onClick={onSkip} className="text-center block text-white/80 hover:text-white transition-colors">
-            Talvez depois
+            {t.maybeLater}
           </LinkText>
         </div>
       </div>
