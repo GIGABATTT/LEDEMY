@@ -1,8 +1,16 @@
 import React from 'react';
 import { DashboardCard } from '../ui/DashboardCard';
 import { InfoCard } from '../ui/InfoCard';
+import { useUser } from '../../contexts/UserContext';
 
-export const Dashboard: React.FC = () => {
+interface DashboardProps {
+  onBackToLogin: () => void;
+}
+
+export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin }) => {
+  const { userName } = useUser();
+  const displayName = userName || 'Usuário';
+
   return (
     <div className="w-full max-w-[412px] mx-auto">
       <header className="w-full h-[66px] flex justify-between items-center bg-[#007] px-5 py-0">
@@ -14,6 +22,7 @@ export const Dashboard: React.FC = () => {
             fill="none" 
             xmlns="http://www.w3.org/2000/svg" 
             className="profile-icon cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={onBackToLogin}
           >
             <path d="M18.5001 18.5C16.8042 18.5 15.3525 17.8962 14.1449 16.6885C12.9372 15.4809 12.3334 14.0292 12.3334 12.3333C12.3334 10.6375 12.9372 9.18576 14.1449 7.97812C15.3525 6.77048 16.8042 6.16666 18.5001 6.16666C20.1959 6.16666 21.6477 6.77048 22.8553 7.97812C24.0629 9.18576 24.6667 10.6375 24.6667 12.3333C24.6667 14.0292 24.0629 15.4809 22.8553 16.6885C21.6477 17.8962 20.1959 18.5 18.5001 18.5ZM6.16675 30.8333V26.5167C6.16675 25.6431 6.39157 24.8401 6.84123 24.1078C7.29088 23.3755 7.88828 22.8167 8.63341 22.4312C10.2265 21.6347 11.8452 21.0373 13.4897 20.6391C15.1341 20.2408 16.8042 20.0417 18.5001 20.0417C20.1959 20.0417 21.8661 20.2408 23.5105 20.6391C25.1549 21.0373 26.7737 21.6347 28.3667 22.4312C29.1119 22.8167 29.7093 23.3755 30.1589 24.1078C30.6086 24.8401 30.8334 25.6431 30.8334 26.5167V30.8333H6.16675ZM9.25008 27.75H27.7501V26.5167C27.7501 26.234 27.6794 25.9771 27.5381 25.7458C27.3968 25.5146 27.2105 25.3347 26.9792 25.2062C25.5917 24.5125 24.1914 23.9922 22.7782 23.6453C21.365 23.2984 19.939 23.125 18.5001 23.125C17.0612 23.125 15.6352 23.2984 14.222 23.6453C12.8088 23.9922 11.4084 24.5125 10.0209 25.2062C9.78966 25.3347 9.60338 25.5146 9.46206 25.7458C9.32074 25.9771 9.25008 26.234 9.25008 26.5167V27.75ZM18.5001 15.4167C19.348 15.4167 20.0739 15.1148 20.6777 14.5109C21.2815 13.9071 21.5834 13.1812 21.5834 12.3333C21.5834 11.4854 21.2815 10.7595 20.6777 10.1557C20.0739 9.55191 19.348 9.25 18.5001 9.25C17.6522 9.25 16.9263 9.55191 16.3225 10.1557C15.7187 10.7595 15.4167 11.4854 15.4167 12.3333C15.4167 13.1812 15.7187 13.9071 16.3225 14.5109C16.9263 15.1148 17.6522 15.4167 18.5001 15.4167Z" 
             fill="white"
@@ -37,7 +46,7 @@ export const Dashboard: React.FC = () => {
       </header>
       
       <div className="text-white text-[32px] font-bold text-center m-5 max-sm:text-2xl bg-[#00007788] p-3 rounded-lg shadow-md">
-        Seja bem vindo, Geralt de Rívia!
+        Seja bem vindo, {displayName}!
       </div>
       
       <div className="flex flex-col gap-5 p-5 items-center">
@@ -120,24 +129,12 @@ export const Dashboard: React.FC = () => {
       
       <div className="flex flex-col gap-5 p-5 items-center">
         <InfoCard>
-          Descubra a provável patologia que pode estar afetando você, e
-          saiba como seguir em frente
-        </InfoCard>
-        
-        <InfoCard>
-          Defina alarmes e lembretes para que seja lembrado da dose e do
-          remédio que deverá tomar
-        </InfoCard>
-        
-        <InfoCard>
-          Descubra farmácias ou hospitais ao seu redor, ordenado por
-          estrelas de clientes antigos
-        </InfoCard>
-        
-        <InfoCard>
-          Escolha os contatos que deseja que sejam atualizados de seu estado
-        </InfoCard>
-      </div>
-    </div>
-  );
-};
+          <div className="flex items-center gap-4">
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 

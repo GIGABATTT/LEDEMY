@@ -1,8 +1,10 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { FormInput } from '../ui/FormInput';
 import { ActionButton } from '../ui/ActionButton';
 import { LinkText } from '../ui/LinkText';
 import { AppLogo } from '../ui/AppLogo';
+import { useUser } from '../../contexts/UserContext';
 
 interface RegistrationFormProps {
   onBack: () => void;
@@ -10,6 +12,33 @@ interface RegistrationFormProps {
 }
 
 export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onContinue }) => {
+  const { 
+    userName, userAge, userPathology, userEmergencyContact, userAddress,
+    setUserName, setUserAge, setUserPathology, setUserEmergencyContact, setUserAddress 
+  } = useUser();
+  
+  const [localName, setLocalName] = useState(userName);
+  const [localAge, setLocalAge] = useState(userAge);
+  const [localPathology, setLocalPathology] = useState(userPathology);
+  const [localEmergencyContact, setLocalEmergencyContact] = useState(userEmergencyContact);
+  const [localAddress, setLocalAddress] = useState(userAddress);
+
+  const handleContinue = () => {
+    setUserName(localName);
+    setUserAge(localAge);
+    setUserPathology(localPathology);
+    setUserEmergencyContact(localEmergencyContact);
+    setUserAddress(localAddress);
+    console.log('Registration data saved:', { 
+      name: localName, 
+      age: localAge, 
+      pathology: localPathology, 
+      emergencyContact: localEmergencyContact, 
+      address: localAddress 
+    });
+    onContinue();
+  };
+
   return (
     <div className="w-full max-w-[412px] mx-auto flex flex-col items-center">
       <div className="w-full flex flex-col items-center">
@@ -34,22 +63,32 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onCo
           <FormInput 
             type="text" 
             placeholder="Nome" 
+            value={localName}
+            onChange={(e) => setLocalName(e.target.value)}
           />
           <FormInput 
             type="text" 
             placeholder="Idade" 
+            value={localAge}
+            onChange={(e) => setLocalAge(e.target.value)}
           />
           <FormInput 
             type="text" 
             placeholder="Patologia (opicional)" 
+            value={localPathology}
+            onChange={(e) => setLocalPathology(e.target.value)}
           />
           <FormInput 
             type="text" 
             placeholder="Contato de emergência" 
+            value={localEmergencyContact}
+            onChange={(e) => setLocalEmergencyContact(e.target.value)}
           />
           <FormInput 
             type="text" 
             placeholder="Endereço" 
+            value={localAddress}
+            onChange={(e) => setLocalAddress(e.target.value)}
           />
         </form>
         
@@ -58,7 +97,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onCo
           <LinkText href="#">Termos de serviço</LinkText>
         </div>
         
-        <ActionButton onClick={onContinue}>
+        <ActionButton onClick={handleContinue}>
           Continuar
         </ActionButton>
       </div>

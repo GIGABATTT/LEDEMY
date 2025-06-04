@@ -1,8 +1,10 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { FormInput } from '../ui/FormInput';
 import { ActionButton } from '../ui/ActionButton';
 import { LinkText } from '../ui/LinkText';
 import { AppLogo } from '../ui/AppLogo';
+import { useUser } from '../../contexts/UserContext';
 
 interface MedicalInfoFormProps {
   onBack: () => void;
@@ -11,6 +13,27 @@ interface MedicalInfoFormProps {
 }
 
 export const MedicalInfoForm: React.FC<MedicalInfoFormProps> = ({ onBack, onContinue, onSkip }) => {
+  const { 
+    userBloodType, userAllergies, userHealthPlan,
+    setUserBloodType, setUserAllergies, setUserHealthPlan 
+  } = useUser();
+  
+  const [localBloodType, setLocalBloodType] = useState(userBloodType);
+  const [localAllergies, setLocalAllergies] = useState(userAllergies);
+  const [localHealthPlan, setLocalHealthPlan] = useState(userHealthPlan);
+
+  const handleContinue = () => {
+    setUserBloodType(localBloodType);
+    setUserAllergies(localAllergies);
+    setUserHealthPlan(localHealthPlan);
+    console.log('Medical info saved:', { 
+      bloodType: localBloodType, 
+      allergies: localAllergies, 
+      healthPlan: localHealthPlan 
+    });
+    onContinue();
+  };
+
   return (
     <div className="w-full max-w-[412px] mx-auto flex flex-col items-center">
       <div className="w-full flex flex-col items-center">
@@ -35,19 +58,25 @@ export const MedicalInfoForm: React.FC<MedicalInfoFormProps> = ({ onBack, onCont
           <FormInput 
             type="text" 
             placeholder="Tipo sanguíneo" 
+            value={localBloodType}
+            onChange={(e) => setLocalBloodType(e.target.value)}
           />
           <FormInput 
             type="text" 
             placeholder="Alergias" 
+            value={localAllergies}
+            onChange={(e) => setLocalAllergies(e.target.value)}
           />
           <FormInput 
             type="text" 
             placeholder="Plano de saúde (opicional)" 
+            value={localHealthPlan}
+            onChange={(e) => setLocalHealthPlan(e.target.value)}
           />
         </form>
         
         <div className="flex flex-col items-center">
-          <ActionButton onClick={onContinue}>
+          <ActionButton onClick={handleContinue}>
             Continuar
           </ActionButton>
           
