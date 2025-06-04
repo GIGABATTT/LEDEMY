@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { DashboardCard } from '../ui/DashboardCard';
 import { InfoCard } from '../ui/InfoCard';
@@ -10,7 +9,8 @@ interface DashboardProps {
 
 export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin }) => {
   const { userName } = useUser();
-  const displayName = userName || 'Usuário';
+  // Pega apenas o primeiro nome (antes do primeiro espaço)
+  const firstName = userName ? userName.split(' ')[0] : 'Usuário';
 
   return (
     <div className="w-full max-w-[412px] mx-auto">
@@ -47,7 +47,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin }) => {
       </header>
       
       <div className="text-white text-[32px] font-bold text-center m-5 max-sm:text-2xl bg-[#00007788] p-3 rounded-lg shadow-md">
-        Seja bem vindo, {displayName}!
+        Seja bem vindo, {firstName}!
       </div>
       
       <div className="flex flex-col gap-5 p-5 items-center">
@@ -128,23 +128,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin }) => {
         Como utilizar?
       </div>
       
-      <div className="flex flex-col gap-5 p-5 items-center">
+      <div className="flex flex-col gap-4 p-5 items-center">
         <InfoCard>
           <div className="flex items-center gap-4">
             <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
+              width="32" 
+              height="32" 
+              viewBox="0 0 32 32" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM12 8C13.66 8 15 6.66 15 5C15 3.34 13.66 2 12 2C10.34 2 9 3.34 9 5C9 6.66 10.34 8 12 8Z" 
+              <path d="M14 26C17.4 26 20.375 24.9813 22.925 22.9438C25.475 20.9062 26.5 18.425 26.5 15.5C26.5 12.6 25.475 10.125 22.925 8.075C20.375 6.025 17.4 5 14.5 5C11.575 5 9.09375 6.025 7.05625 8.075C5.01875 10.125 4 12.6 4 15.5C4 18.425 5.01875 20.9062 7.05625 22.9438C9.09375 24.9813 11.575 26 14.5 26ZM14.5 21.5C12.425 21.5 10.5813 20.9438 8.96875 19.8313C7.35625 18.7188 6.2 17.275 5.5 15.5C6.2 13.75 7.35625 12.3125 8.96875 11.1875C10.5813 10.0625 12.425 9.5 14.5 9.5C16.55 9.5 18.3813 10.0625 19.9938 11.1875C21.6063 12.3125 22.775 13.75 23.5 15.5C22.775 17.275 21.6063 18.7188 19.9938 19.8313C18.3813 20.9438 16.55 21.5 14.5 21.5Z" 
               fill="#01015E"
               />
             </svg>
             <div className="text-left">
-              <h3 className="font-semibold text-lg mb-2">1. Pesquise seus sintomas</h3>
-              <p className="text-sm">Digite os sintomas que está sentindo e receba informações relevantes.</p>
+              <h3 className="font-semibold text-lg mb-2 text-[#01015E]">Pesquise seus sintomas</h3>
+              <p className="text-sm text-gray-600">Digite os sintomas que está sentindo e receba informações relevantes.</p>
             </div>
           </div>
         </InfoCard>
@@ -152,19 +152,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin }) => {
         <InfoCard>
           <div className="flex items-center gap-4">
             <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
+              width="32" 
+              height="30" 
+              viewBox="0 0 32 30" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V11H13V17ZM13 9H11V7H13V9Z" 
+              <path d="M16 29.5211C14.1221 29.5211 12.3631 29.1643 10.723 28.4507C9.08294 27.7371 7.65571 26.7731 6.44131 25.5587C5.22692 24.3443 4.26291 22.9171 3.5493 21.277C2.83568 19.6369 2.47887 17.8779 2.47887 16C2.47887 14.1221 2.83568 12.3631 3.5493 10.723C4.26291 9.08294 5.22692 7.65571 6.44131 6.44131C7.65571 5.22692 9.08294 4.26291 10.723 3.5493C12.3631 2.83568 14.1221 2.47887 16 2.47887C17.8779 2.47887 19.6369 2.83568 21.277 3.5493C22.9171 4.26291 24.3443 5.22692 25.5587 6.44131C26.7731 7.65571 27.7371 9.08294 28.4507 10.723C29.1643 12.3631 29.5211 14.1221 29.5211 16C29.5211 17.8779 29.1643 19.6369 28.4507 21.277C27.7371 22.9171 26.7731 24.3443 25.5587 25.5587C24.3443 26.7731 22.9171 27.7371 21.277 28.4507C19.6369 29.1643 17.8779 29.5211 16 29.5211ZM20.2066 22.3099L22.3099 20.2066L17.5023 15.3991V8.48826H14.4977V16.6009L20.2066 22.3099Z" 
               fill="#01015E"
               />
             </svg>
             <div className="text-left">
-              <h3 className="font-semibold text-lg mb-2">2. Configure lembretes</h3>
-              <p className="text-sm">Defina horários para medicamentos e consultas médicas.</p>
+              <h3 className="font-semibold text-lg mb-2 text-[#01015E]">Configure lembretes</h3>
+              <p className="text-sm text-gray-600">Defina horários para medicamentos e consultas médicas.</p>
             </div>
           </div>
         </InfoCard>
@@ -172,19 +172,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin }) => {
         <InfoCard>
           <div className="flex items-center gap-4">
             <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
+              width="32" 
+              height="32" 
+              viewBox="0 0 32 32" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M19 7H18V6C18 3.79 16.21 2 14 2H10C7.79 2 6 3.79 6 6V7H5C3.9 7 3 7.9 3 9V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V9C21 7.9 20.1 7 19 7ZM8 6C8 4.9 8.9 4 10 4H14C15.1 4 16 4.9 16 6V7H8V6ZM12 17C10.9 17 10 16.1 10 15C10 13.9 10.9 13 12 13C13.1 13 14 13.9 14 15C14 16.1 13.1 17 12 17Z" 
+              <path d="M16.0001 28C15.6001 28 15.2167 27.9278 14.8501 27.7833C14.4834 27.6389 14.1556 27.4222 13.8667 27.1333L4.93341 18.1667C4.15564 17.3889 3.58341 16.5 3.21675 15.5C2.85008 14.5 2.66675 13.4556 2.66675 12.3667C2.66675 10.0778 3.41119 8.11111 4.90008 6.46667C6.38897 4.82222 8.24453 4 10.4667 4C11.5334 4 12.539 4.21111 13.4834 4.63333C14.4279 5.05556 15.2667 5.64444 16.0001 6.4C16.7112 5.64444 17.539 5.05556 18.4834 4.63333C19.4279 4.21111 20.4334 4 21.5001 4C23.7223 4 25.5834 4.82222 27.0834 6.46667C28.5834 8.11111 29.3334 10.0667 29.3334 12.3333C29.3334 13.4222 29.1445 14.4667 28.7667 15.4667C28.389 16.4667 27.8223 17.3556 27.0667 18.1333L18.1001 27.1333C17.8112 27.4222 17.489 27.6389 17.1334 27.7833C16.7779 27.9278 16.4001 28 16.0001 28Z" 
               fill="#01015E"
               />
             </svg>
             <div className="text-left">
-              <h3 className="font-semibold text-lg mb-2">3. Encontre farmácias</h3>
-              <p className="text-sm">Localize farmácias próximas à sua localização atual.</p>
+              <h3 className="font-semibold text-lg mb-2 text-[#01015E]">Encontre farmácias</h3>
+              <p className="text-sm text-gray-600">Localize farmácias próximas à sua localização atual.</p>
             </div>
           </div>
         </InfoCard>
@@ -192,19 +192,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin }) => {
         <InfoCard>
           <div className="flex items-center gap-4">
             <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
+              width="32" 
+              height="32" 
+              viewBox="0 0 32 32" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.08 14.82 16.43 14.93C17.55 15.3 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z" 
+              <path d="M25.3333 16C25.3333 13.4 24.4278 11.1944 22.6167 9.38333C20.8056 7.57222 18.6 6.66667 16 6.66667V4C17.6667 4 19.2278 4.31667 20.6833 4.95C22.1389 5.58333 23.4056 6.43889 24.4833 7.51667C25.5611 8.59444 26.4167 9.86111 27.05 11.3167C27.6833 12.7722 28 14.3333 28 16H25.3333ZM20 16C20 14.8889 19.6111 13.9444 18.8333 13.1667C18.0556 12.3889 17.1111 12 16 12V9.33333C17.8444 9.33333 19.4167 9.98333 20.7167 11.2833C22.0167 12.5833 22.6667 14.1556 22.6667 16H20ZM26.6 28C23.8222 28 21.0778 27.3944 18.3667 26.1833C15.6556 24.9722 13.1889 23.2556 10.9667 21.0333C8.74444 18.8111 7.02778 16.3444 5.81667 13.6333C4.60556 10.9222 4 8.17778 4 5.4C4 5 4.13333 4.66667 4.4 4.4C4.66667 4.13333 5 4 5.4 4H10.8C11.1111 4 11.3889 4.10556 11.6333 4.31667C11.8778 4.52778 12.0222 4.77778 12.0667 5.06667L12.9333 9.73333C12.9778 10.0889 12.9667 10.3889 12.9 10.6333C12.8333 10.8778 12.7111 11.0889 12.5333 11.2667L9.3 14.5333C9.74444 15.3556 10.2722 16.15 10.8833 16.9167C11.4944 17.6833 12.1667 18.4222 12.9 19.1333C13.5889 19.8222 14.3111 20.4611 15.0667 21.05C15.8222 21.6389 16.6222 22.1778 17.4667 22.6667L20.6 19.5333C20.8 19.3333 21.0611 19.1833 21.3833 19.0833C21.7056 18.9833 22.0222 18.9556 22.3333 19L26.9333 19.9333C27.2444 20.0222 27.5 20.1833 27.7 20.4167C27.9 20.65 28 20.9111 28 21.2V26.6C28 27 27.8667 27.3333 27.6 27.6C27.3333 27.8667 27 28 26.6 28ZM8.03333 12L10.2333 9.8L9.66667 6.66667H6.7C6.81111 7.57778 6.96667 8.47778 7.16667 9.36667C7.36667 10.2556 7.65556 11.1333 8.03333 12ZM19.9667 23.9333C20.8333 24.3111 21.7167 24.6111 22.6167 24.8333C23.5167 25.0556 24.4222 25.2 25.3333 25.2667V22.3333L22.2 21.7L19.9667 23.9333Z" 
               fill="#01015E"
               />
             </svg>
             <div className="text-left">
-              <h3 className="font-semibold text-lg mb-2">4. Contatos de emergência</h3>
-              <p className="text-sm">Mantenha seus contatos de emergência sempre acessíveis.</p>
+              <h3 className="font-semibold text-lg mb-2 text-[#01015E]">Contatos de emergência</h3>
+              <p className="text-sm text-gray-600">Mantenha seus contatos de emergência sempre acessíveis.</p>
             </div>
           </div>
         </InfoCard>

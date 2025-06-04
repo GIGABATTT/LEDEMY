@@ -49,6 +49,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onRegister }) => {
             placeholder="Endereço de e-mail" 
             value={localEmail}
             onChange={(e) => setLocalEmail(e.target.value)}
+            showEmailSuggestions={true}
           />
           <FormInput 
             type="password" 
