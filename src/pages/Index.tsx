@@ -5,6 +5,7 @@ import { RegistrationForm } from '../components/auth/RegistrationForm';
 import { MedicalInfoForm } from '../components/auth/MedicalInfoForm';
 import { PlanSelection } from '../components/premium/PlanSelection';
 import { Dashboard } from '../components/dashboard/Dashboard';
+import { SymptomsSearch } from '../components/symptoms/SymptomsSearch';
 import { UserProvider } from '../contexts/UserContext';
 import { LanguageProvider } from '../contexts/LanguageContext';
 
@@ -18,7 +19,8 @@ enum AppScreen {
   REGISTRATION,
   MEDICAL_INFO,
   PLAN_SELECTION,
-  DASHBOARD
+  DASHBOARD,
+  SYMPTOMS_SEARCH
 }
 
 const Index: React.FC = () => {
@@ -32,6 +34,8 @@ const Index: React.FC = () => {
   const handleContinueToPlan = () => setCurrentScreen(AppScreen.PLAN_SELECTION);
   const handleSkipToDashboard = () => setCurrentScreen(AppScreen.DASHBOARD);
   const handleClosePlan = () => setCurrentScreen(AppScreen.DASHBOARD);
+  const handleNavigateToSymptoms = () => setCurrentScreen(AppScreen.SYMPTOMS_SEARCH);
+  const handleBackToDashboard = () => setCurrentScreen(AppScreen.DASHBOARD);
 
   return (
     <LanguageProvider>
@@ -67,7 +71,16 @@ const Index: React.FC = () => {
           )}
           
           {currentScreen === AppScreen.DASHBOARD && (
-            <Dashboard onBackToLogin={handleBackToLogin} />
+            <Dashboard 
+              onBackToLogin={handleBackToLogin}
+              onNavigateToSymptoms={handleNavigateToSymptoms}
+            />
+          )}
+          
+          {currentScreen === AppScreen.SYMPTOMS_SEARCH && (
+            <SymptomsSearch 
+              onBackToDashboard={handleBackToDashboard}
+            />
           )}
         </div>
       </UserProvider>

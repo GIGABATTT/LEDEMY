@@ -6,15 +6,22 @@ import { useLanguage } from '../../contexts/LanguageContext';
 
 interface DashboardProps {
   onBackToLogin: () => void;
+  onNavigateToSymptoms?: () => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin, onNavigateToSymptoms }) => {
   const { t } = useLanguage();
   const { userName } = useUser();
   
   // Get only the first name
   const firstName = userName ? userName.split(' ')[0] : '';
   const displayName = firstName || 'Usuário';
+
+  const handleSymptomsClick = () => {
+    if (onNavigateToSymptoms) {
+      onNavigateToSymptoms();
+    }
+  };
 
   return (
     <div className="w-full max-w-[412px] mx-auto">
@@ -71,6 +78,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin }) => {
             </svg>
           }
           text="Pesquisar sintomas"
+          onClick={handleSymptomsClick}
         />
         
         <DashboardCard
@@ -135,73 +143,24 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin }) => {
       <div className="flex flex-col gap-5 p-5 items-center">
         <InfoCard>
           <div className="flex items-center gap-4 animate-fade-in hover:scale-105 transition-all duration-300">
-            <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-              className="flex-shrink-0 animate-pulse"
-            >
-              <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 4V6L12 5.5L9 6V4L3 7V9L9 6.5V8L3 11V13L9 10V22H11V10.5L12 10L13 10.5V22H15V10L21 13V11L15 8V6.5L21 9Z" 
-              fill="#007" 
-              />
-            </svg>
             <span className="text-gray-700 font-medium">{t.searchSymptomsDesc}</span>
           </div>
         </InfoCard>
         
         <InfoCard>
           <div className="flex items-center gap-4 animate-fade-in hover:scale-105 transition-all duration-300" style={{ animationDelay: '0.1s' }}>
-            <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-              className="flex-shrink-0 animate-bounce"
-            >
-              <path d="M12 20C16.4 20 22 6.5 22 12S16.4 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2M17 13H11V7H12.5V11.5H17V13Z" 
-              fill="#007" 
-              />
-            </svg>
             <span className="text-gray-700 font-medium">{t.setRemindersDesc}</span>
           </div>
         </InfoCard>
         
         <InfoCard>
           <div className="flex items-center gap-4 animate-fade-in hover:scale-105 transition-all duration-300" style={{ animationDelay: '0.2s' }}>
-            <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-              className="flex-shrink-0 animate-spin"
-              style={{ animationDuration: '3s' }}
-            >
-              <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" 
-              fill="#007" 
-              />
-            </svg>
             <span className="text-gray-700 font-medium">{t.nearbyPharmaciesDesc}</span>
           </div>
         </InfoCard>
         
         <InfoCard>
           <div className="flex items-center gap-4 animate-fade-in hover:scale-105 transition-all duration-300" style={{ animationDelay: '0.3s' }}>
-            <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-              className="flex-shrink-0 animate-pulse"
-            >
-              <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M12 6C13.93 6 15.5 7.57 15.5 9.5S13.93 13 12 13 8.5 11.43 8.5 9.5 10.07 6 12 6M17 17H7V15.9C7 14.03 10.69 13 12 13S17 14.03 17 15.9V17Z" 
-              fill="#007" 
-              />
-            </svg>
             <span className="text-gray-700 font-medium">{t.emergencyContactsDesc}</span>
           </div>
         </InfoCard>
