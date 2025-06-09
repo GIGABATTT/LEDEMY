@@ -11,14 +11,17 @@ import { Checkbox } from '../ui/checkbox';
 interface ReminderFormProps {
   onBack: () => void;
   onBackToDashboard: () => void;
+  onAddReminder: (reminder: any) => void;
 }
 
-export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDashboard }) => {
+export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDashboard, onAddReminder }) => {
   const { t } = useLanguage();
+  const [reminderName, setReminderName] = useState('');
   const [reminderType, setReminderType] = useState('');
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
   const [dose, setDose] = useState('');
   const [time, setTime] = useState('');
+  const [sound, setSound] = useState('');
 
   const reminderTypes = [
     { value: 'medicine', label: t.medicine },
@@ -27,13 +30,21 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
   ];
 
   const daysOfWeek = [
-    { value: 'sunday', label: t.sunday },
-    { value: 'monday', label: t.monday },
-    { value: 'tuesday', label: t.tuesday },
-    { value: 'wednesday', label: t.wednesday },
-    { value: 'thursday', label: t.thursday },
-    { value: 'friday', label: t.friday },
-    { value: 'saturday', label: t.saturday }
+    { value: 'sunday', label: t.sunday, short: 'Dom' },
+    { value: 'monday', label: t.monday, short: 'Seg' },
+    { value: 'tuesday', label: t.tuesday, short: 'Ter' },
+    { value: 'wednesday', label: t.wednesday, short: 'Qua' },
+    { value: 'thursday', label: t.thursday, short: 'Qui' },
+    { value: 'friday', label: t.friday, short: 'Sex' },
+    { value: 'saturday', label: t.saturday, short: 'Sáb' }
+  ];
+
+  const soundOptions = [
+    { value: 'default', label: 'Padrão' },
+    { value: 'bell', label: 'Sino' },
+    { value: 'chime', label: 'Carrilhão' },
+    { value: 'alarm', label: 'Alarme' },
+    { value: 'notification', label: 'Notificação' }
   ];
 
   const handleDayToggle = (day: string) => {
@@ -45,16 +56,18 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
   };
 
   const handleCreateReminder = () => {
-    // Aqui você pode adicionar a lógica para salvar o lembrete
-    console.log('Criando lembrete:', {
-      type: reminderType,
+    const newReminder = {
+      id: Date.now().toString(),
+      name: reminderName,
+      type: reminderTypes.find(type => type.value === reminderType)?.label || reminderType,
       days: selectedDays,
       dose: reminderType === 'medicine' ? dose : undefined,
-      time
-    });
+      time,
+      sound
+    };
     
-    // Voltar para a tela anterior após criar
-    onBack();
+    console.log('Criando lembrete:', newReminder);
+    onAddReminder(newReminder);
   };
 
   return (
@@ -84,6 +97,21 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
       <div className="p-6 space-y-6">
         <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
           <div className="space-y-6">
+            {/* Nome do lembrete */}
+            <div className="space-y-2">
+              <Label htmlFor="reminderName" className="text-[#007] font-semibold">
+                Nome do lembrete
+              </Label>
+              <Input
+                id="reminderName"
+                type="text"
+                placeholder="Ex: Tomar vitamina D"
+                value={reminderName}
+                onChange={(e) => setReminderName(e.target.value)}
+                className="w-full"
+              />
+            </div>
+
             {/* Tipo de lembrete */}
             <div className="space-y-2">
               <Label htmlFor="reminderType" className="text-[#007] font-semibold">
@@ -103,25 +131,42 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
               </Select>
             </div>
 
+            {/* Som do lembrete */}
+            <div className="space-y-2">
+              <Label htmlFor="sound" className="text-[#007] font-semibold">
+                Som do lembrete
+              </Label>
+              <Select value={sound} onValueChange={setSound}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Escolha o som" />
+                </SelectTrigger>
+                <SelectContent>
+                  {soundOptions.map((soundOption) => (
+                    <SelectItem key={soundOption.value} value={soundOption.value}>
+                      {soundOption.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
             {/* Dias da semana */}
             <div className="space-y-3">
               <Label className="text-[#007] font-semibold">
                 {t.daysOfWeek}
               </Label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-7 gap-2">
                 {daysOfWeek.map((day) => (
-                  <div key={day.value} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={day.value}
-                      checked={selectedDays.includes(day.value)}
-                      onCheckedChange={() => handleDayToggle(day.value)}
-                    />
-                    <Label 
-                      htmlFor={day.value}
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      {day.label}
-                    </Label>
+                  <div 
+                    key={day.value} 
+                    className={`flex flex-col items-center p-2 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
+                      selectedDays.includes(day.value) 
+                        ? 'border-[#007] bg-[#007] text-white' 
+                        : 'border-gray-300 bg-white text-gray-700 hover:border-[#007] hover:bg-blue-50'
+                    }`}
+                    onClick={() => handleDayToggle(day.value)}
+                  >
+                    <span className="text-xs font-medium">{day.short}</span>
                   </div>
                 ))}
               </div>
@@ -164,7 +209,7 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
         <div className="flex flex-col items-center space-y-4">
           <ActionButton 
             onClick={handleCreateReminder}
-            disabled={!reminderType || selectedDays.length === 0 || !time}
+            disabled={!reminderName || !reminderType || selectedDays.length === 0 || !time || !sound}
           >
             {t.createReminder}
           </ActionButton>

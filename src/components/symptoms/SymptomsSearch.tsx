@@ -9,15 +9,32 @@ interface SymptomsSearchProps {
   onBackToDashboard: () => void;
 }
 
+interface Reminder {
+  id: string;
+  name: string;
+  type: string;
+  time: string;
+  days: string[];
+  dose?: string;
+  sound: string;
+}
+
 export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboard }) => {
   const { t } = useLanguage();
   const [showReminderForm, setShowReminderForm] = useState(false);
+  const [reminders, setReminders] = useState<Reminder[]>([]);
+
+  const handleAddReminder = (reminder: Reminder) => {
+    setReminders(prev => [...prev, reminder]);
+    setShowReminderForm(false);
+  };
 
   if (showReminderForm) {
     return (
       <ReminderForm 
         onBack={() => setShowReminderForm(false)}
         onBackToDashboard={onBackToDashboard}
+        onAddReminder={handleAddReminder}
       />
     );
   }
@@ -48,24 +65,37 @@ export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboar
       
       <div className="p-6">
         <div 
-          className="w-full bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 cursor-pointer hover:shadow-md transition-all duration-300 hover:bg-gray-50"
+          className="w-full bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 cursor-pointer hover:shadow-lg transition-all duration-300 hover:bg-gray-50 hover:scale-[1.02] group"
           onClick={() => setShowReminderForm(true)}
         >
-          <div className="w-8 h-8 bg-[#007] rounded-full flex items-center justify-center">
-            <Plus className="w-5 h-5 text-white" />
+          <div className="flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <Plus className="w-6 h-6 text-[#007]" />
           </div>
           <span className="text-[#007] text-lg font-medium">
             {t.newReminder}
           </span>
         </div>
-        
-        <div className="mt-8 flex justify-center">
-          <ActionButton 
-            onClick={onBackToDashboard}
-          >
-            {t.returnToMenu}
-          </ActionButton>
-        </div>
+
+        {/* Lista de lembretes criados */}
+        {reminders.length > 0 && (
+          <div className="mt-6 space-y-3">
+            <h3 className="text-[#007] text-lg font-semibold mb-4">Lembretes criados</h3>
+            {reminders.map((reminder) => (
+              <div key={reminder.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-[#007] font-semibold text-lg">{reminder.name}</h4>
+                    <p className="text-gray-600 text-sm">{reminder.type}</p>
+                    <p className="text-gray-800 font-medium">{reminder.time}</p>
+                    <p className="text-gray-500 text-sm">
+                      {reminder.days.map(day => t[day as keyof typeof t]).join(', ')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
