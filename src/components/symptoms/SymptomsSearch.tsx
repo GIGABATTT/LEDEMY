@@ -40,7 +40,7 @@ export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboar
           </svg>
         </div>
         <div className="text-white text-xl font-bold">
-          {t('configureReminders')}
+          {t.configureReminders}
         </div>
         <div></div>
       </header>
@@ -54,7 +54,7 @@ export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboar
             ➕
           </div>
           <span className="text-[#007] text-xl font-medium">
-            {t('addReminder')}
+            {t.addReminder}
           </span>
         </div>
         
@@ -62,7 +62,7 @@ export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboar
           onClick={onBackToDashboard}
           className="mt-8"
         >
-          {t('returnToMenu')}
+          {t.returnToMenu}
         </ActionButton>
       </div>
     </div>

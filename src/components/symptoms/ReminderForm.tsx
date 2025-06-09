@@ -21,19 +21,19 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
   const [time, setTime] = useState('');
 
   const reminderTypes = [
-    { value: 'medicine', label: t('medicine') },
-    { value: 'appointment', label: t('medicalAppointment') },
-    { value: 'exercise', label: t('physicalExercise') }
+    { value: 'medicine', label: t.medicine },
+    { value: 'appointment', label: t.medicalAppointment },
+    { value: 'exercise', label: t.physicalExercise }
   ];
 
   const daysOfWeek = [
-    { value: 'sunday', label: t('sunday') },
-    { value: 'monday', label: t('monday') },
-    { value: 'tuesday', label: t('tuesday') },
-    { value: 'wednesday', label: t('wednesday') },
-    { value: 'thursday', label: t('thursday') },
-    { value: 'friday', label: t('friday') },
-    { value: 'saturday', label: t('saturday') }
+    { value: 'sunday', label: t.sunday },
+    { value: 'monday', label: t.monday },
+    { value: 'tuesday', label: t.tuesday },
+    { value: 'wednesday', label: t.wednesday },
+    { value: 'thursday', label: t.thursday },
+    { value: 'friday', label: t.friday },
+    { value: 'saturday', label: t.saturday }
   ];
 
   const handleDayToggle = (day: string) => {
@@ -76,7 +76,7 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
           </svg>
         </div>
         <div className="text-white text-xl font-bold">
-          {t('newReminder')}
+          {t.newReminder}
         </div>
         <div></div>
       </header>
@@ -87,11 +87,11 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
             {/* Tipo de lembrete */}
             <div className="space-y-2">
               <Label htmlFor="reminderType" className="text-[#007] font-semibold">
-                {t('reminderType')}
+                {t.reminderType}
               </Label>
               <Select value={reminderType} onValueChange={setReminderType}>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder={t('selectReminderType')} />
+                  <SelectValue placeholder={t.selectReminderType} />
                 </SelectTrigger>
                 <SelectContent>
                   {reminderTypes.map((type) => (
@@ -106,7 +106,7 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
             {/* Dias da semana */}
             <div className="space-y-3">
               <Label className="text-[#007] font-semibold">
-                {t('daysOfWeek')}
+                {t.daysOfWeek}
               </Label>
               <div className="grid grid-cols-2 gap-3">
                 {daysOfWeek.map((day) => (
@@ -131,12 +131,12 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
             {reminderType === 'medicine' && (
               <div className="space-y-2">
                 <Label htmlFor="dose" className="text-[#007] font-semibold">
-                  {t('medicineDose')} <span className="text-gray-500">({t('optional')})</span>
+                  {t.medicineDose} <span className="text-gray-500">({t.optional})</span>
                 </Label>
                 <Input
                   id="dose"
                   type="text"
-                  placeholder={t('dosePlaceholder')}
+                  placeholder={t.dosePlaceholder}
                   value={dose}
                   onChange={(e) => setDose(e.target.value)}
                   className="w-full"
@@ -147,7 +147,7 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
             {/* Horário */}
             <div className="space-y-2">
               <Label htmlFor="time" className="text-[#007] font-semibold">
-                {t('time')}
+                {t.time}
               </Label>
               <Input
                 id="time"
@@ -166,7 +166,7 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
             onClick={handleCreateReminder}
             disabled={!reminderType || selectedDays.length === 0 || !time}
           >
-            {t('createReminder')}
+            {t.createReminder}
           </ActionButton>
           
           <Button 
@@ -174,7 +174,7 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
             onClick={onBackToDashboard}
             className="text-[#007] border-[#007] hover:bg-[#007] hover:text-white"
           >
-            {t('returnToMenu')}
+            {t.returnToMenu}
           </Button>
         </div>
       </div>

@@ -69,6 +69,7 @@ interface Translations {
   dosePlaceholder: string;
   time: string;
   createReminder: string;
+  returnToMenu: string;
 }
 
 const translations: Record<Language, Translations> = {
@@ -128,6 +129,7 @@ const translations: Record<Language, Translations> = {
     dosePlaceholder: 'Ex: 1 comprimido, 5ml, etc.',
     time: 'Horário',
     createReminder: 'Criar lembrete',
+    returnToMenu: 'Retornar ao menu',
   },
   'en': {
     emailPlaceholder: 'Email address',
@@ -185,6 +187,7 @@ const translations: Record<Language, Translations> = {
     dosePlaceholder: 'Ex: 1 tablet, 5ml, etc.',
     time: 'Time',
     createReminder: 'Create reminder',
+    returnToMenu: 'Return to menu',
   },
   'ja': {
     emailPlaceholder: 'メールアドレス',
@@ -242,6 +245,7 @@ const translations: Record<Language, Translations> = {
     dosePlaceholder: '例：1錠、5ml など',
     time: '時間',
     createReminder: 'リマインダーを作成',
+    returnToMenu: 'メニューに戻る',
   }
 };
 
