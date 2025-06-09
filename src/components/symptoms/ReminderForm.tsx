@@ -206,21 +206,13 @@ export const ReminderForm: React.FC<ReminderFormProps> = ({ onBack, onBackToDash
         </div>
 
         {/* Botão de criar lembrete */}
-        <div className="flex flex-col items-center space-y-4">
+        <div className="flex flex-col items-center">
           <ActionButton 
             onClick={handleCreateReminder}
             disabled={!reminderName || !reminderType || selectedDays.length === 0 || !time || !sound}
           >
             {t.createReminder}
           </ActionButton>
-          
-          <Button 
-            variant="outline" 
-            onClick={onBackToDashboard}
-            className="text-[#007] border-[#007] hover:bg-[#007] hover:text-white"
-          >
-            {t.returnToMenu}
-          </Button>
         </div>
       </div>
     </div>

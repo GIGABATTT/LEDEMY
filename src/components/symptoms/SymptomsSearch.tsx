@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { ActionButton } from '../ui/ActionButton';
 import { ReminderForm } from './ReminderForm';
-import { Plus } from 'lucide-react';
+import { Plus, Clock, Calendar, Volume2 } from 'lucide-react';
 
 interface SymptomsSearchProps {
   onBackToDashboard: () => void;
@@ -78,18 +78,38 @@ export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboar
 
         {/* Lista de lembretes criados */}
         {reminders.length > 0 && (
-          <div className="mt-6 space-y-3">
-            <h3 className="text-[#007] text-lg font-semibold mb-4">Lembretes criados</h3>
+          <div className="mt-6 space-y-4">
+            <h3 className="text-[#007] text-xl font-bold mb-6">Lembretes criados</h3>
             {reminders.map((reminder) => (
-              <div key={reminder.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-[#007] font-semibold text-lg">{reminder.name}</h4>
-                    <p className="text-gray-600 text-sm">{reminder.type}</p>
-                    <p className="text-gray-800 font-medium">{reminder.time}</p>
-                    <p className="text-gray-500 text-sm">
-                      {reminder.days.map(day => t[day as keyof typeof t]).join(', ')}
-                    </p>
+              <div key={reminder.id} className="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h4 className="text-[#007] font-bold text-xl mb-2">{reminder.name}</h4>
+                    
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="bg-blue-50 px-3 py-1 rounded-full">
+                        <span className="text-[#007] text-sm font-medium">{reminder.type}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-gray-700">
+                        <Clock className="w-4 h-4 text-[#007]" />
+                        <span className="font-semibold text-lg">{reminder.time}</span>
+                      </div>
+                      
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <Calendar className="w-4 h-4 text-[#007]" />
+                        <span className="text-sm">
+                          {reminder.days.map(day => t[day as keyof typeof t]).join(', ')}
+                        </span>
+                      </div>
+                      
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <Volume2 className="w-4 h-4 text-[#007]" />
+                        <span className="text-sm capitalize">{reminder.sound}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

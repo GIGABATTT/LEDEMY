@@ -7,6 +7,7 @@ import { AppLogo } from '../ui/AppLogo';
 import { LanguageSelector } from '../ui/LanguageSelector';
 import { useUser } from '../../contexts/UserContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { Eye, EyeOff } from 'lucide-react';
 
 interface LoginFormProps {
   onRegister: () => void;
@@ -17,6 +18,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onRegister }) => {
   const { userEmail, userPassword, setUserEmail, setUserPassword } = useUser();
   const [localEmail, setLocalEmail] = useState(userEmail);
   const [localPassword, setLocalPassword] = useState(userPassword);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegisterClick = () => {
     setUserEmail(localEmail);
@@ -43,12 +45,21 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onRegister }) => {
             onChange={(e) => setLocalEmail(e.target.value)}
             showEmailSuggestions={true}
           />
-          <FormInput 
-            type="password" 
-            placeholder={t.passwordPlaceholder}
-            value={localPassword}
-            onChange={(e) => setLocalPassword(e.target.value)}
-          />
+          <div className="relative w-full max-w-sm">
+            <FormInput 
+              type={showPassword ? "text" : "password"}
+              placeholder={t.passwordPlaceholder}
+              value={localPassword}
+              onChange={(e) => setLocalPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
         </form>
         
         <div className="flex flex-col items-center mx-0 my-5">
