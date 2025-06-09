@@ -1,7 +1,8 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { ActionButton } from '../ui/ActionButton';
+import { ReminderForm } from './ReminderForm';
 
 interface SymptomsSearchProps {
   onBackToDashboard: () => void;
@@ -9,9 +10,19 @@ interface SymptomsSearchProps {
 
 export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboard }) => {
   const { t } = useLanguage();
+  const [showReminderForm, setShowReminderForm] = useState(false);
+
+  if (showReminderForm) {
+    return (
+      <ReminderForm 
+        onBack={() => setShowReminderForm(false)}
+        onBackToDashboard={onBackToDashboard}
+      />
+    );
+  }
 
   return (
-    <div className="w-full max-w-[412px] mx-auto">
+    <div className="w-full max-w-[412px] mx-auto min-h-screen bg-white">
       <header className="w-full h-[66px] flex justify-between items-center bg-[#007] px-5 py-0">
         <div>
           <svg 
@@ -29,27 +40,21 @@ export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboar
           </svg>
         </div>
         <div className="text-white text-xl font-bold">
-          Pesquisar Sintomas
+          {t('configureReminders')}
         </div>
         <div></div>
       </header>
       
       <div className="flex flex-col items-center justify-center min-h-[80vh] p-8">
-        <div className="text-center mb-8">
-          <h1 className="text-white text-[28px] font-bold mb-4">
-            Pesquisa de Sintomas
-          </h1>
-          <p className="text-white text-lg opacity-80">
-            Área em desenvolvimento
-          </p>
-        </div>
-        
-        <div className="w-[300px] h-[200px] bg-white bg-opacity-20 rounded-[15px] flex flex-col items-center justify-center border border-white border-opacity-30 hover:bg-opacity-30 transition-all duration-300 cursor-pointer">
+        <div 
+          className="w-[300px] h-[200px] bg-white shadow-lg rounded-[15px] flex flex-col items-center justify-center border border-gray-200 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105"
+          onClick={() => setShowReminderForm(true)}
+        >
           <div className="text-6xl mb-4 animate-bounce">
             ➕
           </div>
-          <span className="text-white text-xl font-medium">
-            Criar lembrete
+          <span className="text-[#007] text-xl font-medium">
+            {t('addReminder')}
           </span>
         </div>
         
@@ -57,7 +62,7 @@ export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboar
           onClick={onBackToDashboard}
           className="mt-8"
         >
-          Retornar ao Menu
+          {t('returnToMenu')}
         </ActionButton>
       </div>
     </div>

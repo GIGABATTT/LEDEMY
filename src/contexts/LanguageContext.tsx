@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 export type Language = 'pt-BR' | 'en' | 'ja';
@@ -47,6 +46,29 @@ interface Translations {
   setRemindersDesc: string;
   nearbyPharmaciesDesc: string;
   emergencyContactsDesc: string;
+
+  // Configure Reminders
+  configureReminders: string;
+  addReminder: string;
+  newReminder: string;
+  reminderType: string;
+  selectReminderType: string;
+  medicine: string;
+  medicalAppointment: string;
+  physicalExercise: string;
+  daysOfWeek: string;
+  sunday: string;
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  saturday: string;
+  medicineDose: string;
+  optional: string;
+  dosePlaceholder: string;
+  time: string;
+  createReminder: string;
 }
 
 const translations: Record<Language, Translations> = {
@@ -84,7 +106,28 @@ const translations: Record<Language, Translations> = {
     searchSymptomsDesc: 'Digite seus sintomas e encontre possíveis diagnósticos',
     setRemindersDesc: 'Configure lembretes para medicamentos e consultas',
     nearbyPharmaciesDesc: 'Encontre farmácias próximas à sua localização',
-    emergencyContactsDesc: 'Acesse rapidamente seus contatos de emergência'
+    emergencyContactsDesc: 'Acesse rapidamente seus contatos de emergência',
+    configureReminders: 'Configurar Lembretes',
+    addReminder: 'Adicionar lembrete',
+    newReminder: 'Novo Lembrete',
+    reminderType: 'Tipo de lembrete',
+    selectReminderType: 'Selecione o tipo de lembrete',
+    medicine: 'Remédio',
+    medicalAppointment: 'Consulta médica',
+    physicalExercise: 'Exercício físico',
+    daysOfWeek: 'Dias da semana',
+    sunday: 'Domingo',
+    monday: 'Segunda',
+    tuesday: 'Terça',
+    wednesday: 'Quarta',
+    thursday: 'Quinta',
+    friday: 'Sexta',
+    saturday: 'Sábado',
+    medicineDose: 'Dose do remédio',
+    optional: 'opcional',
+    dosePlaceholder: 'Ex: 1 comprimido, 5ml, etc.',
+    time: 'Horário',
+    createReminder: 'Criar lembrete',
   },
   'en': {
     emailPlaceholder: 'Email address',
@@ -120,7 +163,28 @@ const translations: Record<Language, Translations> = {
     searchSymptomsDesc: 'Enter your symptoms and find possible diagnoses',
     setRemindersDesc: 'Set reminders for medications and appointments',
     nearbyPharmaciesDesc: 'Find pharmacies near your location',
-    emergencyContactsDesc: 'Quickly access your emergency contacts'
+    emergencyContactsDesc: 'Quickly access your emergency contacts',
+    configureReminders: 'Configure Reminders',
+    addReminder: 'Add reminder',
+    newReminder: 'New Reminder',
+    reminderType: 'Reminder type',
+    selectReminderType: 'Select reminder type',
+    medicine: 'Medicine',
+    medicalAppointment: 'Medical appointment',
+    physicalExercise: 'Physical exercise',
+    daysOfWeek: 'Days of week',
+    sunday: 'Sunday',
+    monday: 'Monday',
+    tuesday: 'Tuesday',
+    wednesday: 'Wednesday',
+    thursday: 'Thursday',
+    friday: 'Friday',
+    saturday: 'Saturday',
+    medicineDose: 'Medicine dose',
+    optional: 'optional',
+    dosePlaceholder: 'Ex: 1 tablet, 5ml, etc.',
+    time: 'Time',
+    createReminder: 'Create reminder',
   },
   'ja': {
     emailPlaceholder: 'メールアドレス',
@@ -156,7 +220,28 @@ const translations: Record<Language, Translations> = {
     searchSymptomsDesc: '症状を入力して可能な診断を見つける',
     setRemindersDesc: '薬や予約のリマインダーを設定',
     nearbyPharmaciesDesc: 'あなたの場所の近くの薬局を探す',
-    emergencyContactsDesc: '緊急連絡先にすばやくアクセス'
+    emergencyContactsDesc: '緊急連絡先にすばやくアクセス',
+    configureReminders: 'リマインダー設定',
+    addReminder: 'リマインダーを追加',
+    newReminder: '新しいリマインダー',
+    reminderType: 'リマインダーの種類',
+    selectReminderType: 'リマインダーの種類を選択',
+    medicine: '薬',
+    medicalAppointment: '医療予約',
+    physicalExercise: '運動',
+    daysOfWeek: '曜日',
+    sunday: '日曜日',
+    monday: '月曜日',
+    tuesday: '火曜日',
+    wednesday: '水曜日',
+    thursday: '木曜日',
+    friday: '金曜日',
+    saturday: '土曜日',
+    medicineDose: '薬の用量',
+    optional: 'オプション',
+    dosePlaceholder: '例：1錠、5ml など',
+    time: '時間',
+    createReminder: 'リマインダーを作成',
   }
 };
 
