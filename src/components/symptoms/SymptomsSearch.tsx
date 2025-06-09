@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { ActionButton } from '../ui/ActionButton';
 import { ReminderForm } from './ReminderForm';
+import { Plus } from 'lucide-react';
 
 interface SymptomsSearchProps {
   onBackToDashboard: () => void;
@@ -22,7 +23,7 @@ export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboar
   }
 
   return (
-    <div className="w-full max-w-[412px] mx-auto min-h-screen bg-white">
+    <div className="w-full max-w-[412px] mx-auto min-h-screen bg-gray-100">
       <header className="w-full h-[66px] flex justify-between items-center bg-[#007] px-5 py-0">
         <div>
           <svg 
@@ -45,25 +46,26 @@ export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboar
         <div></div>
       </header>
       
-      <div className="flex flex-col items-center justify-center min-h-[80vh] p-8">
+      <div className="p-6">
         <div 
-          className="w-[300px] h-[200px] bg-white shadow-lg rounded-[15px] flex flex-col items-center justify-center border border-gray-200 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105"
+          className="w-full bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 cursor-pointer hover:shadow-md transition-all duration-300 hover:bg-gray-50"
           onClick={() => setShowReminderForm(true)}
         >
-          <div className="text-6xl mb-4 animate-bounce">
-            ➕
+          <div className="w-8 h-8 bg-[#007] rounded-full flex items-center justify-center">
+            <Plus className="w-5 h-5 text-white" />
           </div>
-          <span className="text-[#007] text-xl font-medium">
-            {t.addReminder}
+          <span className="text-[#007] text-lg font-medium">
+            {t.newReminder}
           </span>
         </div>
         
-        <ActionButton 
-          onClick={onBackToDashboard}
-          className="mt-8"
-        >
-          {t.returnToMenu}
-        </ActionButton>
+        <div className="mt-8 flex justify-center">
+          <ActionButton 
+            onClick={onBackToDashboard}
+          >
+            {t.returnToMenu}
+          </ActionButton>
+        </div>
       </div>
     </div>
   );
