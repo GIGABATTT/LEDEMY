@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { DashboardCard } from '../ui/DashboardCard';
 import { InfoCard } from '../ui/InfoCard';
@@ -10,13 +9,15 @@ interface DashboardProps {
   onNavigateToSymptoms?: () => void;
   onNavigateToReminders?: () => void;
   onNavigateToPharmacies?: () => void;
+  onNavigateToEmergencyContacts?: () => void;
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ 
   onBackToLogin, 
   onNavigateToSymptoms, 
   onNavigateToReminders,
-  onNavigateToPharmacies 
+  onNavigateToPharmacies,
+  onNavigateToEmergencyContacts
 }) => {
   const { t } = useLanguage();
   const { userName } = useUser();
@@ -40,6 +41,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
   const handlePharmaciesClick = () => {
     if (onNavigateToPharmacies) {
       onNavigateToPharmacies();
+    }
+  };
+
+  const handleEmergencyContactsClick = () => {
+    if (onNavigateToEmergencyContacts) {
+      onNavigateToEmergencyContacts();
     }
   };
 
@@ -155,6 +162,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </svg>
           }
           text="Contatos de emergência"
+          onClick={handleEmergencyContactsClick}
         />
       </div>
       
@@ -190,3 +198,5 @@ export const Dashboard: React.FC<DashboardProps> = ({
     </div>
   );
 };
+
+</edits_to_apply>
