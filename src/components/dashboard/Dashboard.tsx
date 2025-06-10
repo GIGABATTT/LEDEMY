@@ -8,9 +8,15 @@ interface DashboardProps {
   onBackToLogin: () => void;
   onNavigateToSymptoms?: () => void;
   onNavigateToReminders?: () => void;
+  onNavigateToPharmacies?: () => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin, onNavigateToSymptoms, onNavigateToReminders }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ 
+  onBackToLogin, 
+  onNavigateToSymptoms, 
+  onNavigateToReminders,
+  onNavigateToPharmacies 
+}) => {
   const { t } = useLanguage();
   const { userName } = useUser();
   
@@ -27,6 +33,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin, onNavigateT
   const handleRemindersClick = () => {
     if (onNavigateToReminders) {
       onNavigateToReminders();
+    }
+  };
+
+  const handlePharmaciesClick = () => {
+    if (onNavigateToPharmacies) {
+      onNavigateToPharmacies();
     }
   };
 
@@ -123,6 +135,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin, onNavigateT
             </svg>
           }
           text="Farmácias por perto"
+          onClick={handlePharmaciesClick}
         />
         
         <DashboardCard
@@ -176,3 +189,5 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin, onNavigateT
     </div>
   );
 };
+
+</edits_to_apply>

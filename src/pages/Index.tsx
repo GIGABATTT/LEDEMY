@@ -9,6 +9,7 @@ import { SymptomsSearch } from '../components/symptoms/SymptomsSearch';
 import { SymptomsSearchMain } from '../components/symptoms/SymptomsSearchMain';
 import { DescribeSymptoms } from '../components/symptoms/DescribeSymptoms';
 import { DescribeDisease } from '../components/symptoms/DescribeDisease';
+import { NearbyPharmacies } from '../components/map/NearbyPharmacies';
 import { UserProvider } from '../contexts/UserContext';
 import { LanguageProvider } from '../contexts/LanguageContext';
 
@@ -26,7 +27,8 @@ enum AppScreen {
   SYMPTOMS_SEARCH_MAIN,
   DESCRIBE_SYMPTOMS,
   DESCRIBE_DISEASE,
-  REMINDERS
+  REMINDERS,
+  NEARBY_PHARMACIES
 }
 
 const Index: React.FC = () => {
@@ -42,6 +44,7 @@ const Index: React.FC = () => {
   const handleClosePlan = () => setCurrentScreen(AppScreen.DASHBOARD);
   const handleNavigateToSymptoms = () => setCurrentScreen(AppScreen.SYMPTOMS_SEARCH_MAIN);
   const handleNavigateToReminders = () => setCurrentScreen(AppScreen.REMINDERS);
+  const handleNavigateToPharmacies = () => setCurrentScreen(AppScreen.NEARBY_PHARMACIES);
   const handleBackToDashboard = () => setCurrentScreen(AppScreen.DASHBOARD);
   const handleDescribeSymptoms = () => setCurrentScreen(AppScreen.DESCRIBE_SYMPTOMS);
   const handleDescribeDisease = () => setCurrentScreen(AppScreen.DESCRIBE_DISEASE);
@@ -85,6 +88,7 @@ const Index: React.FC = () => {
               onBackToLogin={handleBackToLogin}
               onNavigateToSymptoms={handleNavigateToSymptoms}
               onNavigateToReminders={handleNavigateToReminders}
+              onNavigateToPharmacies={handleNavigateToPharmacies}
             />
           )}
           
@@ -112,6 +116,12 @@ const Index: React.FC = () => {
           
           {currentScreen === AppScreen.REMINDERS && (
             <SymptomsSearch 
+              onBackToDashboard={handleBackToDashboard}
+            />
+          )}
+
+          {currentScreen === AppScreen.NEARBY_PHARMACIES && (
+            <NearbyPharmacies 
               onBackToDashboard={handleBackToDashboard}
             />
           )}
