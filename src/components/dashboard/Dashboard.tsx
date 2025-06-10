@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { DashboardCard } from '../ui/DashboardCard';
 import { InfoCard } from '../ui/InfoCard';
@@ -8,9 +7,10 @@ import { useLanguage } from '../../contexts/LanguageContext';
 interface DashboardProps {
   onBackToLogin: () => void;
   onNavigateToSymptoms?: () => void;
+  onNavigateToReminders?: () => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin, onNavigateToSymptoms }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin, onNavigateToSymptoms, onNavigateToReminders }) => {
   const { t } = useLanguage();
   const { userName } = useUser();
   
@@ -21,6 +21,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin, onNavigateT
   const handleSymptomsClick = () => {
     if (onNavigateToSymptoms) {
       onNavigateToSymptoms();
+    }
+  };
+
+  const handleRemindersClick = () => {
+    if (onNavigateToReminders) {
+      onNavigateToReminders();
     }
   };
 
@@ -79,7 +85,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin, onNavigateT
             </svg>
           }
           text="Configurar lembretes"
-          onClick={handleSymptomsClick}
+          onClick={handleRemindersClick}
         />
         
         <DashboardCard

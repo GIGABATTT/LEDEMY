@@ -23,7 +23,10 @@ enum AppScreen {
   MEDICAL_INFO,
   PLAN_SELECTION,
   DASHBOARD,
-  SYMPTOMS_SEARCH
+  SYMPTOMS_SEARCH_MAIN,
+  DESCRIBE_SYMPTOMS,
+  DESCRIBE_DISEASE,
+  REMINDERS
 }
 
 const Index: React.FC = () => {
@@ -37,8 +40,12 @@ const Index: React.FC = () => {
   const handleContinueToPlan = () => setCurrentScreen(AppScreen.PLAN_SELECTION);
   const handleSkipToDashboard = () => setCurrentScreen(AppScreen.DASHBOARD);
   const handleClosePlan = () => setCurrentScreen(AppScreen.DASHBOARD);
-  const handleNavigateToSymptoms = () => setCurrentScreen(AppScreen.SYMPTOMS_SEARCH);
+  const handleNavigateToSymptoms = () => setCurrentScreen(AppScreen.SYMPTOMS_SEARCH_MAIN);
+  const handleNavigateToReminders = () => setCurrentScreen(AppScreen.REMINDERS);
   const handleBackToDashboard = () => setCurrentScreen(AppScreen.DASHBOARD);
+  const handleDescribeSymptoms = () => setCurrentScreen(AppScreen.DESCRIBE_SYMPTOMS);
+  const handleDescribeDisease = () => setCurrentScreen(AppScreen.DESCRIBE_DISEASE);
+  const handleBackToSymptomsMain = () => setCurrentScreen(AppScreen.SYMPTOMS_SEARCH_MAIN);
 
   return (
     <LanguageProvider>
@@ -77,10 +84,33 @@ const Index: React.FC = () => {
             <Dashboard 
               onBackToLogin={handleBackToLogin}
               onNavigateToSymptoms={handleNavigateToSymptoms}
+              onNavigateToReminders={handleNavigateToReminders}
             />
           )}
           
-          {currentScreen === AppScreen.SYMPTOMS_SEARCH && (
+          {currentScreen === AppScreen.SYMPTOMS_SEARCH_MAIN && (
+            <SymptomsSearchMain 
+              onBackToDashboard={handleBackToDashboard}
+              onDescribeSymptoms={handleDescribeSymptoms}
+              onDescribeDisease={handleDescribeDisease}
+            />
+          )}
+          
+          {currentScreen === AppScreen.DESCRIBE_SYMPTOMS && (
+            <DescribeSymptoms 
+              onBack={handleBackToSymptomsMain}
+              onBackToDashboard={handleBackToDashboard}
+            />
+          )}
+          
+          {currentScreen === AppScreen.DESCRIBE_DISEASE && (
+            <DescribeDisease 
+              onBack={handleBackToSymptomsMain}
+              onBackToDashboard={handleBackToDashboard}
+            />
+          )}
+          
+          {currentScreen === AppScreen.REMINDERS && (
             <SymptomsSearch 
               onBackToDashboard={handleBackToDashboard}
             />
