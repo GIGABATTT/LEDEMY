@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { DashboardCard } from '../ui/DashboardCard';
 import { InfoCard } from '../ui/InfoCard';
@@ -170,3 +169,5 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin, onNavigateT
     </div>
   );
 };
+
+</edits_to_apply>
