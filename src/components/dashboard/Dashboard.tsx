@@ -97,6 +97,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin, onNavigateT
             </svg>
           }
           text="Pesquisar sintomas"
+          onClick={handleSymptomsClick}
         />
         
         <DashboardCard
@@ -168,3 +169,5 @@ export const Dashboard: React.FC<DashboardProps> = ({ onBackToLogin, onNavigateT
     </div>
   );
 };
+
+</edits_to_apply>

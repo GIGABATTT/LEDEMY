@@ -6,6 +6,9 @@ import { MedicalInfoForm } from '../components/auth/MedicalInfoForm';
 import { PlanSelection } from '../components/premium/PlanSelection';
 import { Dashboard } from '../components/dashboard/Dashboard';
 import { SymptomsSearch } from '../components/symptoms/SymptomsSearch';
+import { SymptomsSearchMain } from '../components/symptoms/SymptomsSearchMain';
+import { DescribeSymptoms } from '../components/symptoms/DescribeSymptoms';
+import { DescribeDisease } from '../components/symptoms/DescribeDisease';
 import { UserProvider } from '../contexts/UserContext';
 import { LanguageProvider } from '../contexts/LanguageContext';
 
