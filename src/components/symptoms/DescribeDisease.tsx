@@ -16,23 +16,59 @@ export const DescribeDisease: React.FC<DescribeDiseaseProps> = ({ onBack, onBack
   const handleSearch = () => {
     const lowerDisease = disease.toLowerCase();
     
-    if (lowerDisease.includes('enxaqueca') || lowerDisease.includes('enxaqueca')) {
+    if (lowerDisease.includes('enxaqueca')) {
       setResult('ENXAQUECA - Os principais sintomas incluem:\n\n• Dor de cabeça intensa e pulsante\n• Sensibilidade à luz (fotofobia)\n• Náuseas e vômitos\n• Sensibilidade ao som\n• Dor geralmente em um lado da cabeça\n• Pode durar de 4 a 72 horas');
       setRecommendations([
         'Descansar em ambiente escuro e silencioso',
         'Aplicar compressas frias na testa',
         'Chá de camomila para relaxamento',
         'Massagem suave nas têmporas',
-        'Evitar alimentos que podem ser gatilhos (chocolate, queijos)'
+        'Evitar alimentos que podem ser gatilhos (chocolate, queijos)',
+        'Procurar um médico se persistir'
       ]);
-    } else if (lowerDisease.includes('gripe')) {
-      setResult('GRIPE - Os principais sintomas incluem:\n\n• Febre alta\n• Dores no corpo\n• Tosse seca\n• Dor de garganta\n• Fadiga e fraqueza\n• Dor de cabeça\n• Calafrios');
+    } else if (lowerDisease.includes('gripe') || lowerDisease.includes('influenza')) {
+      setResult('GRIPE (INFLUENZA) - Os principais sintomas incluem:\n\n• Febre\n• Dor de garganta\n• Tosse seca\n• Dores no corpo\n• Cansaço\n• Coriza');
+      setRecommendations([
+        'Chá de limão com mel',
+        'Repouso absoluto',
+        'Hidratação com bastante água',
+        'Usar umidificador ou inalação com soro fisiológico',
+        'Procurar um médico se persistir por mais de 5 dias'
+      ]);
+    } else if (lowerDisease.includes('resfriado')) {
+      setResult('RESFRIADO COMUM - Os principais sintomas incluem:\n\n• Espirros\n• Coriza\n• Nariz entupido\n• Leve dor de cabeça\n• Garganta arranhando');
+      setRecommendations([
+        'Chá de hortelã ou gengibre',
+        'Banho quente para aliviar congestão nasal',
+        'Dormir com a cabeça levemente elevada',
+        'Evitar ambientes com ar-condicionado forte',
+        'Procurar um médico se os sintomas piorarem'
+      ]);
+    } else if (lowerDisease.includes('dengue')) {
+      setResult('DENGUE - Os principais sintomas incluem:\n\n• Febre alta\n• Dor atrás dos olhos\n• Dores no corpo e articulações\n• Manchas vermelhas na pele\n• Náuseas');
       setRecommendations([
         'Repouso absoluto',
-        'Beber muitos líquidos (água, chás, sucos)',
-        'Chá de gengibre com mel e limão',
-        'Gargarejos com água morna e sal',
-        'Inalação de vapor d\'água'
+        'Beber bastante líquido (água, sucos naturais, água de coco)',
+        'Evitar automedicação',
+        'Procurar um posto de saúde imediatamente'
+      ]);
+    } else if (lowerDisease.includes('infecção urinária') || lowerDisease.includes('infeccao urinaria')) {
+      setResult('INFECÇÃO URINÁRIA - Os principais sintomas incluem:\n\n• Ardência ao urinar\n• Vontade frequente de urinar\n• Urina turva ou com odor forte\n• Dor no baixo ventre');
+      setRecommendations([
+        'Beber bastante água',
+        'Chá de quebra-pedra ou de uva-ursina',
+        'Manter boa higiene íntima',
+        'Evitar segurar a urina por muito tempo',
+        'Procurar um médico se os sintomas persistirem'
+      ]);
+    } else if (lowerDisease.includes('dor de garganta') || lowerDisease.includes('amigdalite')) {
+      setResult('DOR DE GARGANTA (AMIGDALITE SIMPLES) - Os principais sintomas incluem:\n\n• Dor ao engolir\n• Garganta vermelha ou inchada\n• Febre leve\n• Mau hálito');
+      setRecommendations([
+        'Gargarejo com água morna e sal',
+        'Chá de gengibre com mel',
+        'Evitar bebidas geladas',
+        'Falar pouco e repousar a voz',
+        'Procurar um médico se a dor persistir por mais de 3 dias'
       ]);
     } else if (lowerDisease.includes('diabetes')) {
       setResult('DIABETES - Os principais sintomas incluem:\n\n• Sede excessiva\n• Urinar frequentemente\n• Fome excessiva\n• Perda de peso sem explicação\n• Fadiga\n• Visão embaçada\n• Cicatrização lenta de feridas');
@@ -41,7 +77,18 @@ export const DescribeDisease: React.FC<DescribeDiseaseProps> = ({ onBack, onBack
         'Praticar exercícios físicos leves (caminhada)',
         'Beber bastante água',
         'Evitar açúcares e carboidratos refinados',
-        'Controlar o peso corporal'
+        'Controlar o peso corporal',
+        'Procurar um médico endocrinologista'
+      ]);
+    } else if (lowerDisease.includes('gastrite')) {
+      setResult('GASTRITE - Os principais sintomas incluem:\n\n• Dor no estômago\n• Azia\n• Náuseas\n• Sensação de queimação');
+      setRecommendations([
+        'Evitar alimentos ácidos e condimentados',
+        'Fazer refeições menores e mais frequentes',
+        'Chá de espinheira-santa',
+        'Evitar jejum prolongado',
+        'Beber bastante água',
+        'Procurar um médico se os sintomas persistirem'
       ]);
     } else {
       setResult('Doença não encontrada na nossa base de dados. Consulte um médico para informações mais específicas sobre esta condição.');
@@ -49,7 +96,8 @@ export const DescribeDisease: React.FC<DescribeDiseaseProps> = ({ onBack, onBack
         'Manter hábitos saudáveis',
         'Beber bastante água',
         'Praticar exercícios regulares',
-        'Ter uma alimentação equilibrada'
+        'Ter uma alimentação equilibrada',
+        'Procurar orientação médica'
       ]);
     }
   };
@@ -83,7 +131,7 @@ export const DescribeDisease: React.FC<DescribeDiseaseProps> = ({ onBack, onBack
           <h3 className="text-[#007] text-xl font-bold mb-4">Digite o nome da doença:</h3>
           
           <Textarea
-            placeholder="Ex: Enxaqueca, Gripe, Diabetes..."
+            placeholder="Ex: Enxaqueca, Gripe, Dengue, Infecção urinária, Dor de garganta..."
             value={disease}
             onChange={(e) => setDisease(e.target.value)}
             className="min-h-[100px] mb-4"

@@ -33,20 +33,72 @@ export const DescribeSymptoms: React.FC<DescribeSymptomsProps> = ({ onBack, onBa
         'Aplicar compressas frias na testa',
         'Beber chá de camomila para relaxar',
         'Fazer massagem suave nas têmporas',
-        'Manter-se hidratado'
+        'Manter-se hidratado',
+        'Procurar um médico se persistir'
       ]
     },
     {
       id: 'gripe',
-      name: 'GRIPE/RESFRIADO',
-      description: 'Com base nos sintomas descritos, você pode estar com GRIPE ou RESFRIADO.',
-      symptoms: 'Febre, tosse, coriza, dores no corpo, fadiga, dor de garganta',
+      name: 'GRIPE (INFLUENZA)',
+      description: 'Com base nos sintomas descritos, você pode estar com GRIPE (INFLUENZA).',
+      symptoms: 'Febre, dor de garganta, tosse seca, dores no corpo, cansaço, coriza',
       recommendations: [
-        'Fazer repouso absoluto',
-        'Beber bastante líquido (água, chás, sucos naturais)',
-        'Chá de gengibre com mel e limão',
-        'Gargarejos com água morna e sal',
-        'Inalação de vapor com eucalipto'
+        'Chá de limão com mel',
+        'Repouso absoluto',
+        'Hidratação com bastante água',
+        'Usar umidificador ou inalação com soro fisiológico',
+        'Procurar um médico se persistir por mais de 5 dias'
+      ]
+    },
+    {
+      id: 'resfriado',
+      name: 'RESFRIADO COMUM',
+      description: 'Com base nos sintomas descritos, você pode estar com RESFRIADO COMUM.',
+      symptoms: 'Espirros, coriza, nariz entupido, leve dor de cabeça, garganta arranhando',
+      recommendations: [
+        'Chá de hortelã ou gengibre',
+        'Banho quente para aliviar congestão nasal',
+        'Dormir com a cabeça levemente elevada',
+        'Evitar ambientes com ar-condicionado forte',
+        'Procurar um médico se os sintomas piorarem'
+      ]
+    },
+    {
+      id: 'dengue',
+      name: 'DENGUE',
+      description: 'Com base nos sintomas descritos, você pode estar com DENGUE.',
+      symptoms: 'Febre alta, dor atrás dos olhos, dores no corpo e articulações, manchas vermelhas na pele, náuseas',
+      recommendations: [
+        'Repouso absoluto',
+        'Beber bastante líquido (água, sucos naturais, água de coco)',
+        'Evitar automedicação',
+        'Procurar um posto de saúde imediatamente'
+      ]
+    },
+    {
+      id: 'infeccao_urinaria',
+      name: 'INFECÇÃO URINÁRIA',
+      description: 'Com base nos sintomas descritos, você pode estar com INFECÇÃO URINÁRIA.',
+      symptoms: 'Ardência ao urinar, vontade frequente de urinar, urina turva ou com odor forte, dor no baixo ventre',
+      recommendations: [
+        'Beber bastante água',
+        'Chá de quebra-pedra ou de uva-ursina',
+        'Manter boa higiene íntima',
+        'Evitar segurar a urina por muito tempo',
+        'Procurar um médico se os sintomas persistirem'
+      ]
+    },
+    {
+      id: 'dor_garganta',
+      name: 'DOR DE GARGANTA (AMIGDALITE SIMPLES)',
+      description: 'Com base nos sintomas descritos, você pode estar com DOR DE GARGANTA (AMIGDALITE SIMPLES).',
+      symptoms: 'Dor ao engolir, garganta vermelha ou inchada, febre leve, mau hálito',
+      recommendations: [
+        'Gargarejo com água morna e sal',
+        'Chá de gengibre com mel',
+        'Evitar bebidas geladas',
+        'Falar pouco e repousar a voz',
+        'Procurar um médico se a dor persistir por mais de 3 dias'
       ]
     },
     {
@@ -59,7 +111,8 @@ export const DescribeSymptoms: React.FC<DescribeSymptomsProps> = ({ onBack, onBa
         'Fazer refeições menores e mais frequentes',
         'Chá de espinheira-santa',
         'Evitar jejum prolongado',
-        'Beber bastante água'
+        'Beber bastante água',
+        'Procurar um médico se os sintomas persistirem'
       ]
     }
   ];
@@ -68,16 +121,39 @@ export const DescribeSymptoms: React.FC<DescribeSymptomsProps> = ({ onBack, onBa
     const lowerSymptoms = symptoms.toLowerCase();
     const matchedDiseases: Disease[] = [];
     
+    // Enxaqueca
     if (lowerSymptoms.includes('dor de cabeça') || lowerSymptoms.includes('náusea') || lowerSymptoms.includes('sensibilidade a luz') || lowerSymptoms.includes('sensibilidade à luz')) {
-      matchedDiseases.push(diseases[0]); // enxaqueca
+      matchedDiseases.push(diseases.find(d => d.id === 'enxaqueca')!);
     }
     
-    if (lowerSymptoms.includes('febre') || lowerSymptoms.includes('tosse') || lowerSymptoms.includes('coriza')) {
-      matchedDiseases.push(diseases[1]); // gripe
+    // Gripe
+    if (lowerSymptoms.includes('febre') && (lowerSymptoms.includes('tosse') || lowerSymptoms.includes('dor de garganta') || lowerSymptoms.includes('dores no corpo'))) {
+      matchedDiseases.push(diseases.find(d => d.id === 'gripe')!);
     }
     
+    // Resfriado
+    if (lowerSymptoms.includes('espirros') || lowerSymptoms.includes('coriza') || lowerSymptoms.includes('nariz entupido')) {
+      matchedDiseases.push(diseases.find(d => d.id === 'resfriado')!);
+    }
+    
+    // Dengue
+    if (lowerSymptoms.includes('febre alta') || (lowerSymptoms.includes('dor atrás dos olhos') || lowerSymptoms.includes('manchas vermelhas'))) {
+      matchedDiseases.push(diseases.find(d => d.id === 'dengue')!);
+    }
+    
+    // Infecção urinária
+    if (lowerSymptoms.includes('ardência ao urinar') || lowerSymptoms.includes('vontade frequente de urinar') || lowerSymptoms.includes('dor no baixo ventre')) {
+      matchedDiseases.push(diseases.find(d => d.id === 'infeccao_urinaria')!);
+    }
+    
+    // Dor de garganta
+    if (lowerSymptoms.includes('dor ao engolir') || lowerSymptoms.includes('garganta vermelha') || lowerSymptoms.includes('garganta inchada')) {
+      matchedDiseases.push(diseases.find(d => d.id === 'dor_garganta')!);
+    }
+    
+    // Gastrite
     if (lowerSymptoms.includes('dor no estômago') || lowerSymptoms.includes('azia') || lowerSymptoms.includes('queimação')) {
-      matchedDiseases.push(diseases[2]); // gastrite
+      matchedDiseases.push(diseases.find(d => d.id === 'gastrite')!);
     }
 
     if (matchedDiseases.length === 0) {

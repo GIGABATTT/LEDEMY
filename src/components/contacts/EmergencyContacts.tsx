@@ -80,7 +80,6 @@ export const EmergencyContacts: React.FC<EmergencyContactsProps> = ({ onBackToDa
             <div className="text-6xl text-gray-300 font-bold opacity-50 mb-2">
               LEDEMY
             </div>
-            <div className="text-2xl text-red-300">❤️</div>
           </div>
         ) : (
           <div className="space-y-4">
