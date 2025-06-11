@@ -1,9 +1,15 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { DashboardCard } from '../ui/DashboardCard';
 import { InfoCard } from '../ui/InfoCard';
 import { useUser } from '../../contexts/UserContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 interface DashboardProps {
   onBackToLogin: () => void;
@@ -11,6 +17,7 @@ interface DashboardProps {
   onNavigateToReminders?: () => void;
   onNavigateToPharmacies?: () => void;
   onNavigateToEmergencyContacts?: () => void;
+  onNavigateToProfile?: () => void;
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ 
@@ -18,7 +25,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
   onNavigateToSymptoms, 
   onNavigateToReminders,
   onNavigateToPharmacies,
-  onNavigateToEmergencyContacts
+  onNavigateToEmergencyContacts,
+  onNavigateToProfile
 }) => {
   const { t } = useLanguage();
   const { userName } = useUser();
@@ -51,6 +59,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
     }
   };
 
+  const handleProfileClick = () => {
+    if (onNavigateToProfile) {
+      onNavigateToProfile();
+    }
+  };
+
   return (
     <div className="w-full max-w-[412px] mx-auto">
       <header className="w-full h-[66px] flex justify-between items-center bg-[#007] px-5 py-0">
@@ -70,18 +84,34 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </svg>
         </div>
         <div>
-          <svg 
-            width="35" 
-            height="52" 
-            viewBox="0 0 35 52" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="menu-icon cursor-pointer hover:opacity-80 transition-opacity"
-          >
-            <path d="M4.375 38.7182V34.4214H30.625V38.7182H4.375ZM4.375 27.9762V23.6793H30.625V27.9762H4.375ZM4.375 17.2341V12.9372H30.625V17.2341H4.375Z" 
-            fill="white"
-            />
-          </svg>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div className="cursor-pointer hover:opacity-80 transition-opacity">
+                <svg 
+                  width="35" 
+                  height="52" 
+                  viewBox="0 0 35 52" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M4.375 38.7182V34.4214H30.625V38.7182H4.375ZM4.375 27.9762V23.6793H30.625V27.9762H4.375ZM4.375 17.2341V12.9372H30.625V17.2341H4.375Z" 
+                  fill="white"
+                  />
+                </svg>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 bg-white shadow-lg border border-gray-200" align="end">
+              <DropdownMenuItem 
+                onClick={handleProfileClick}
+                className="cursor-pointer hover:bg-gray-100 px-4 py-3 text-gray-700"
+              >
+                Informações do Perfil
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer hover:bg-gray-100 px-4 py-3 text-gray-700">
+                Configurações
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </header>
       

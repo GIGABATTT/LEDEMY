@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegistrationForm } from '../components/auth/RegistrationForm';
@@ -15,6 +14,7 @@ import { NearbyPharmacies } from '../components/map/NearbyPharmacies';
 import { EmergencyContacts } from '../components/contacts/EmergencyContacts';
 import { UserProvider } from '../contexts/UserContext';
 import { LanguageProvider } from '../contexts/LanguageContext';
+import { ProfileInformation } from '../components/profile/ProfileInformation';
 
 // Import font styles
 const fontStyles = `
@@ -34,7 +34,8 @@ enum AppScreen {
   DESCRIBE_DISEASE,
   REMINDERS,
   NEARBY_PHARMACIES,
-  EMERGENCY_CONTACTS
+  EMERGENCY_CONTACTS,
+  PROFILE
 }
 
 const Index: React.FC = () => {
@@ -60,6 +61,7 @@ const Index: React.FC = () => {
   const handleDescribeSymptoms = () => setCurrentScreen(AppScreen.DESCRIBE_SYMPTOMS);
   const handleDescribeDisease = () => setCurrentScreen(AppScreen.DESCRIBE_DISEASE);
   const handleBackToSymptomsMain = () => setCurrentScreen(AppScreen.SYMPTOMS_SEARCH_MAIN);
+  const handleNavigateToProfile = () => setCurrentScreen(AppScreen.PROFILE);
 
   return (
     <LanguageProvider>
@@ -118,6 +120,7 @@ const Index: React.FC = () => {
               onNavigateToReminders={handleNavigateToReminders}
               onNavigateToPharmacies={handleNavigateToPharmacies}
               onNavigateToEmergencyContacts={handleNavigateToEmergencyContacts}
+              onNavigateToProfile={handleNavigateToProfile}
             />
           )}
           
@@ -157,6 +160,12 @@ const Index: React.FC = () => {
 
           {currentScreen === AppScreen.EMERGENCY_CONTACTS && (
             <EmergencyContacts 
+              onBackToDashboard={handleBackToDashboard}
+            />
+          )}
+
+          {currentScreen === AppScreen.PROFILE && (
+            <ProfileInformation 
               onBackToDashboard={handleBackToDashboard}
             />
           )}
