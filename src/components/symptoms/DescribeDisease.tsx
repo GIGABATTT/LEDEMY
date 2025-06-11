@@ -11,18 +11,46 @@ interface DescribeDiseaseProps {
 export const DescribeDisease: React.FC<DescribeDiseaseProps> = ({ onBack, onBackToDashboard }) => {
   const [disease, setDisease] = useState('');
   const [result, setResult] = useState<string | null>(null);
+  const [recommendations, setRecommendations] = useState<string[]>([]);
 
   const handleSearch = () => {
     const lowerDisease = disease.toLowerCase();
     
     if (lowerDisease.includes('enxaqueca') || lowerDisease.includes('enxaqueca')) {
       setResult('ENXAQUECA - Os principais sintomas incluem:\n\n• Dor de cabeça intensa e pulsante\n• Sensibilidade à luz (fotofobia)\n• Náuseas e vômitos\n• Sensibilidade ao som\n• Dor geralmente em um lado da cabeça\n• Pode durar de 4 a 72 horas');
+      setRecommendations([
+        'Descansar em ambiente escuro e silencioso',
+        'Aplicar compressas frias na testa',
+        'Chá de camomila para relaxamento',
+        'Massagem suave nas têmporas',
+        'Evitar alimentos que podem ser gatilhos (chocolate, queijos)'
+      ]);
     } else if (lowerDisease.includes('gripe')) {
       setResult('GRIPE - Os principais sintomas incluem:\n\n• Febre alta\n• Dores no corpo\n• Tosse seca\n• Dor de garganta\n• Fadiga e fraqueza\n• Dor de cabeça\n• Calafrios');
+      setRecommendations([
+        'Repouso absoluto',
+        'Beber muitos líquidos (água, chás, sucos)',
+        'Chá de gengibre com mel e limão',
+        'Gargarejos com água morna e sal',
+        'Inalação de vapor d\'água'
+      ]);
     } else if (lowerDisease.includes('diabetes')) {
       setResult('DIABETES - Os principais sintomas incluem:\n\n• Sede excessiva\n• Urinar frequentemente\n• Fome excessiva\n• Perda de peso sem explicação\n• Fadiga\n• Visão embaçada\n• Cicatrização lenta de feridas');
+      setRecommendations([
+        'Manter alimentação equilibrada e regular',
+        'Praticar exercícios físicos leves (caminhada)',
+        'Beber bastante água',
+        'Evitar açúcares e carboidratos refinados',
+        'Controlar o peso corporal'
+      ]);
     } else {
       setResult('Doença não encontrada na nossa base de dados. Consulte um médico para informações mais específicas sobre esta condição.');
+      setRecommendations([
+        'Manter hábitos saudáveis',
+        'Beber bastante água',
+        'Praticar exercícios regulares',
+        'Ter uma alimentação equilibrada'
+      ]);
     }
   };
 
@@ -73,7 +101,22 @@ export const DescribeDisease: React.FC<DescribeDiseaseProps> = ({ onBack, onBack
         {result && (
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
             <h4 className="text-[#007] font-bold text-lg mb-3">Sintomas da doença:</h4>
-            <pre className="text-gray-700 leading-relaxed whitespace-pre-wrap font-sans">{result}</pre>
+            <pre className="text-gray-700 leading-relaxed whitespace-pre-wrap font-sans mb-4">{result}</pre>
+            
+            {recommendations.length > 0 && (
+              <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <h5 className="text-green-800 font-bold text-lg mb-3">Recomendações de tratamento simples:</h5>
+                <ul className="space-y-2">
+                  {recommendations.map((recommendation, index) => (
+                    <li key={index} className="flex items-start gap-2 text-green-700">
+                      <span className="text-green-600 mt-1">•</span>
+                      <span>{recommendation}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
             <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
               <p className="text-sm text-yellow-800">
                 <strong>Importante:</strong> Esta é apenas uma informação geral. Consulte sempre um médico para diagnóstico e tratamento adequados.

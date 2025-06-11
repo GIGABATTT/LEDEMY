@@ -11,16 +11,37 @@ interface DescribeSymptomsProps {
 export const DescribeSymptoms: React.FC<DescribeSymptomsProps> = ({ onBack, onBackToDashboard }) => {
   const [symptoms, setSymptoms] = useState('');
   const [result, setResult] = useState<string | null>(null);
+  const [recommendations, setRecommendations] = useState<string[]>([]);
 
   const handleAnalyze = () => {
     const lowerSymptoms = symptoms.toLowerCase();
     
     if (lowerSymptoms.includes('dor de cabeça') || lowerSymptoms.includes('náusea') || lowerSymptoms.includes('sensibilidade a luz') || lowerSymptoms.includes('sensibilidade à luz')) {
       setResult('Com base nos sintomas descritos, você pode estar com ENXAQUECA. Os principais sintomas da enxaqueca incluem: dor de cabeça intensa, sensibilidade à luz e náuseas.');
+      setRecommendations([
+        'Descansar em um ambiente escuro e silencioso',
+        'Aplicar compressas frias na testa',
+        'Beber chá de camomila para relaxar',
+        'Fazer massagem suave nas têmporas',
+        'Manter-se hidratado'
+      ]);
     } else if (lowerSymptoms.includes('febre') || lowerSymptoms.includes('tosse') || lowerSymptoms.includes('coriza')) {
       setResult('Com base nos sintomas descritos, você pode estar com GRIPE ou RESFRIADO.');
+      setRecommendations([
+        'Fazer repouso absoluto',
+        'Beber bastante líquido (água, chás, sucos naturais)',
+        'Chá de gengibre com mel e limão',
+        'Gargarejos com água morna e sal',
+        'Inalação de vapor com eucalipto'
+      ]);
     } else {
       setResult('Não foi possível identificar uma condição específica com os sintomas descritos. Recomendamos consultar um médico para uma avaliação adequada.');
+      setRecommendations([
+        'Manter repouso',
+        'Beber bastante água',
+        'Observar a evolução dos sintomas',
+        'Anotar quando os sintomas aparecem'
+      ]);
     }
   };
 
@@ -71,7 +92,22 @@ export const DescribeSymptoms: React.FC<DescribeSymptomsProps> = ({ onBack, onBa
         {result && (
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
             <h4 className="text-[#007] font-bold text-lg mb-3">Resultado da análise:</h4>
-            <p className="text-gray-700 leading-relaxed">{result}</p>
+            <p className="text-gray-700 leading-relaxed mb-4">{result}</p>
+            
+            {recommendations.length > 0 && (
+              <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <h5 className="text-green-800 font-bold text-lg mb-3">Recomendações de tratamento simples:</h5>
+                <ul className="space-y-2">
+                  {recommendations.map((recommendation, index) => (
+                    <li key={index} className="flex items-start gap-2 text-green-700">
+                      <span className="text-green-600 mt-1">•</span>
+                      <span>{recommendation}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
             <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
               <p className="text-sm text-yellow-800">
                 <strong>Importante:</strong> Esta é apenas uma análise preliminar. Consulte sempre um médico para um diagnóstico adequado.
