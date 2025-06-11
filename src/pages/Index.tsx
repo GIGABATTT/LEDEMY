@@ -1,8 +1,11 @@
+
 import React, { useState } from 'react';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegistrationForm } from '../components/auth/RegistrationForm';
 import { MedicalInfoForm } from '../components/auth/MedicalInfoForm';
 import { PlanSelection } from '../components/premium/PlanSelection';
+import { PremiumPayment } from '../components/premium/PremiumPayment';
+import { FamilyPayment } from '../components/premium/FamilyPayment';
 import { Dashboard } from '../components/dashboard/Dashboard';
 import { SymptomsSearch } from '../components/symptoms/SymptomsSearch';
 import { SymptomsSearchMain } from '../components/symptoms/SymptomsSearchMain';
