@@ -7,11 +7,12 @@ import { useLanguage } from '../../contexts/LanguageContext';
 
 interface PlanSelectionProps {
   onClose: () => void;
-  onSelectPlan: () => void;
+  onSelectPremium: () => void;
+  onSelectFamily: () => void;
   onSkip: () => void;
 }
 
-export const PlanSelection: React.FC<PlanSelectionProps> = ({ onClose, onSelectPlan, onSkip }) => {
+export const PlanSelection: React.FC<PlanSelectionProps> = ({ onClose, onSelectPremium, onSelectFamily, onSkip }) => {
   const { t } = useLanguage();
 
   return (
@@ -51,6 +52,7 @@ export const PlanSelection: React.FC<PlanSelectionProps> = ({ onClose, onSelectP
               price="11"
               cents="90"
               description={t.individual}
+              onClick={onSelectPremium}
             />
           </div>
           
@@ -60,15 +62,12 @@ export const PlanSelection: React.FC<PlanSelectionProps> = ({ onClose, onSelectP
               price="19"
               cents="90"
               description={t.upToThreePeople}
+              onClick={onSelectFamily}
             />
           </div>
         </div>
         
         <div className="flex flex-col items-center gap-4">
-          <ActionButton onClick={onSelectPlan}>
-            {t.choosePlan}
-          </ActionButton>
-          
           <LinkText href="#" onClick={onSkip} className="text-center block text-white/80 hover:text-white transition-colors">
             {t.maybeLater}
           </LinkText>

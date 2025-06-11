@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegistrationForm } from '../components/auth/RegistrationForm';
@@ -24,6 +23,8 @@ enum AppScreen {
   REGISTRATION,
   MEDICAL_INFO,
   PLAN_SELECTION,
+  PREMIUM_PAYMENT,
+  FAMILY_PAYMENT,
   DASHBOARD,
   SYMPTOMS_SEARCH_MAIN,
   DESCRIBE_SYMPTOMS,
@@ -44,6 +45,10 @@ const Index: React.FC = () => {
   const handleContinueToPlan = () => setCurrentScreen(AppScreen.PLAN_SELECTION);
   const handleSkipToDashboard = () => setCurrentScreen(AppScreen.DASHBOARD);
   const handleClosePlan = () => setCurrentScreen(AppScreen.DASHBOARD);
+  const handleSelectPremium = () => setCurrentScreen(AppScreen.PREMIUM_PAYMENT);
+  const handleSelectFamily = () => setCurrentScreen(AppScreen.FAMILY_PAYMENT);
+  const handleBackToPlanSelection = () => setCurrentScreen(AppScreen.PLAN_SELECTION);
+  const handlePaymentComplete = () => setCurrentScreen(AppScreen.DASHBOARD);
   const handleNavigateToSymptoms = () => setCurrentScreen(AppScreen.SYMPTOMS_SEARCH_MAIN);
   const handleNavigateToReminders = () => setCurrentScreen(AppScreen.REMINDERS);
   const handleNavigateToPharmacies = () => setCurrentScreen(AppScreen.NEARBY_PHARMACIES);
@@ -81,8 +86,25 @@ const Index: React.FC = () => {
           {currentScreen === AppScreen.PLAN_SELECTION && (
             <PlanSelection 
               onClose={handleClosePlan} 
-              onSelectPlan={handleSkipToDashboard}
+              onSelectPremium={handleSelectPremium}
+              onSelectFamily={handleSelectFamily}
               onSkip={handleSkipToDashboard}
+            />
+          )}
+          
+          {currentScreen === AppScreen.PREMIUM_PAYMENT && (
+            <PremiumPayment 
+              onBack={handleBackToPlanSelection}
+              onSwitchToFamily={handleSelectFamily}
+              onPaymentComplete={handlePaymentComplete}
+            />
+          )}
+          
+          {currentScreen === AppScreen.FAMILY_PAYMENT && (
+            <FamilyPayment 
+              onBack={handleBackToPlanSelection}
+              onSwitchToPremium={handleSelectPremium}
+              onPaymentComplete={handlePaymentComplete}
             />
           )}
           
