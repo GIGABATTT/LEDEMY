@@ -128,7 +128,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Page gradient background */
 .bg-page-gradient {
-  background: linear-gradient(to bottom, #FFFFFF 0%, #000077 100%);
+  background: linear-gradient(to bottom, #000077 0%, #FFFFFF 100%);
   min-height: 100vh;
   width: 100%;
 }
