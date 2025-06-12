@@ -66,16 +66,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
   };
 
   return (
-    <div className="w-full max-w-[412px] mx-auto">
-      <header className="w-full h-[66px] flex justify-between items-center bg-[#007] px-5 py-0">
-        <div>
+    <div className="w-full max-w-[412px] mx-auto min-h-screen bg-gray-100">
+      <header className="w-full h-[66px] flex justify-between items-center bg-[#007] px-4 py-0 mobile-safe-area">
+        <div className="flex items-center">
           <svg 
-            width="37" 
-            height="37" 
+            width="32" 
+            height="32" 
             viewBox="0 0 37 37" 
             fill="none" 
             xmlns="http://www.w3.org/2000/svg" 
-            className="profile-icon cursor-pointer hover:opacity-80 transition-opacity"
+            className="profile-icon cursor-pointer hover:opacity-80 transition-opacity touch-manipulation"
             onClick={onBackToLogin}
           >
             <path d="M18.5001 18.5C16.8042 18.5 15.3525 17.8962 14.1449 16.6885C12.9372 15.4809 12.3334 14.0292 12.3334 12.3333C12.3334 10.6375 12.9372 9.18576 14.1449 7.97812C15.3525 6.77048 16.8042 6.16666 18.5001 6.16666C20.1959 6.16666 21.6477 6.77048 22.8553 7.97812C24.0629 9.18576 24.6667 10.6375 24.6667 12.3333C24.6667 14.0292 24.6629 15.4809 22.8553 16.6885C21.6477 17.8962 20.1959 18.5 18.5001 18.5ZM6.16675 30.8333V26.5167C6.16675 25.6431 6.39157 24.8401 6.84123 24.1078C7.29088 23.3755 7.88828 22.8167 8.63341 22.4312C10.2265 21.6347 11.8452 21.0373 13.4897 20.6391C15.1341 20.2408 16.8042 20.0417 18.5001 20.0417C20.1959 20.0417 21.8661 20.2408 23.5105 20.6391C25.1549 21.0373 26.7737 21.6347 28.3667 22.4312C29.1119 22.8167 29.7093 23.3755 30.1589 24.1078C30.6086 24.8401 30.8334 25.6431 30.8334 26.5167V30.8333H6.16675ZM9.25008 27.75H27.7501V26.5167C27.7501 26.234 27.6794 25.9771 27.5381 25.7458C27.3968 25.5146 27.2105 25.3347 26.9792 25.2062C25.5917 24.5125 24.1914 23.9922 22.7782 23.6453C21.365 23.2984 19.939 23.125 18.5001 23.125C17.0612 23.125 15.6352 23.2984 14.222 23.6453C12.8088 23.9922 11.4084 24.5125 10.0209 25.2062C9.78966 25.3347 9.60338 25.5146 9.46206 25.7458C9.32074 25.9771 9.25008 26.234 9.25008 26.5167V27.75ZM18.5001 15.4167C19.348 15.4167 20.0739 15.1148 20.6777 14.5109C21.2815 13.9071 21.5834 13.1812 21.5834 12.3333C21.5834 11.4854 21.2815 10.7595 20.6777 10.1557C20.0739 9.55191 19.348 9.25 18.5001 9.25C17.6522 9.25 16.9263 9.55191 16.3225 10.1557C15.7187 10.7595 15.4167 11.4854 15.4167 12.3333C15.4167 13.1812 15.7187 13.9071 16.3225 14.5109C16.9263 15.1148 17.6522 15.4167 18.5001 15.4167Z" 
@@ -83,13 +83,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
             />
           </svg>
         </div>
-        <div>
+        <div className="flex items-center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <div className="cursor-pointer hover:opacity-80 transition-opacity">
+              <div className="cursor-pointer hover:opacity-80 transition-opacity p-2 touch-manipulation">
                 <svg 
-                  width="35" 
-                  height="52" 
+                  width="28" 
+                  height="28" 
                   viewBox="0 0 35 52" 
                   fill="none" 
                   xmlns="http://www.w3.org/2000/svg"
@@ -100,14 +100,14 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 </svg>
               </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-white shadow-lg border border-gray-200" align="end">
+            <DropdownMenuContent className="w-56 bg-white shadow-lg border border-gray-200 z-50" align="end">
               <DropdownMenuItem 
                 onClick={handleProfileClick}
-                className="cursor-pointer hover:bg-gray-100 px-4 py-3 text-gray-700"
+                className="cursor-pointer hover:bg-gray-100 px-4 py-3 text-gray-700 touch-manipulation"
               >
                 Informações do Perfil
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer hover:bg-gray-100 px-4 py-3 text-gray-700">
+              <DropdownMenuItem className="cursor-pointer hover:bg-gray-100 px-4 py-3 text-gray-700 touch-manipulation">
                 Configurações
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -115,16 +115,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
       </header>
       
-      <div className="text-white text-[32px] font-bold text-center m-5 max-sm:text-2xl bg-[#00007788] p-3 rounded-lg shadow-md">
+      <div className="text-white text-2xl sm:text-3xl font-bold text-center mx-4 my-4 bg-[#00007788] p-4 rounded-lg shadow-md mobile-safe-area">
         {t.welcome}, {displayName}!
       </div>
       
-      <div className="flex flex-col gap-5 p-5 items-center">
+      <div className="flex flex-col gap-4 p-4 items-center mobile-safe-area">
         <DashboardCard
           icon={
             <svg 
-              width="32" 
-              height="30" 
+              width="28" 
+              height="28" 
               viewBox="0 0 32 30" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg" 
@@ -142,8 +142,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <DashboardCard
           icon={
             <svg 
-              width="36" 
-              height="36" 
+              width="28" 
+              height="28" 
               viewBox="0 0 36 36" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg" 
@@ -161,8 +161,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <DashboardCard
           icon={
             <svg 
-              width="32" 
-              height="32" 
+              width="28" 
+              height="28" 
               viewBox="0 0 32 32" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg" 
@@ -180,8 +180,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <DashboardCard
           icon={
             <svg 
-              width="32" 
-              height="32" 
+              width="28" 
+              height="28" 
               viewBox="0 0 32 32" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg" 
@@ -197,32 +197,32 @@ export const Dashboard: React.FC<DashboardProps> = ({
         />
       </div>
       
-      <div className="text-black text-[32px] text-center mx-0 my-10">
+      <div className="text-black text-xl sm:text-2xl text-center mx-4 my-6 mobile-safe-area">
         {t.howToUse}
       </div>
       
-      <div className="flex flex-col gap-5 p-5 items-center">
+      <div className="flex flex-col gap-4 p-4 items-center mobile-safe-area pb-8">
         <InfoCard>
           <div className="flex items-center gap-4 animate-fade-in hover:scale-105 transition-all duration-300">
-            <span className="text-gray-700 font-medium">{t.searchSymptomsDesc}</span>
+            <span className="text-gray-700 font-medium text-base sm:text-lg text-center">{t.searchSymptomsDesc}</span>
           </div>
         </InfoCard>
         
         <InfoCard>
           <div className="flex items-center gap-4 animate-fade-in hover:scale-105 transition-all duration-300" style={{ animationDelay: '0.1s' }}>
-            <span className="text-gray-700 font-medium">{t.setRemindersDesc}</span>
+            <span className="text-gray-700 font-medium text-base sm:text-lg text-center">{t.setRemindersDesc}</span>
           </div>
         </InfoCard>
         
         <InfoCard>
           <div className="flex items-center gap-4 animate-fade-in hover:scale-105 transition-all duration-300" style={{ animationDelay: '0.2s' }}>
-            <span className="text-gray-700 font-medium">{t.nearbyPharmaciesDesc}</span>
+            <span className="text-gray-700 font-medium text-base sm:text-lg text-center">{t.nearbyPharmaciesDesc}</span>
           </div>
         </InfoCard>
         
         <InfoCard>
           <div className="flex items-center gap-4 animate-fade-in hover:scale-105 transition-all duration-300" style={{ animationDelay: '0.3s' }}>
-            <span className="text-gray-700 font-medium">{t.emergencyContactsDesc}</span>
+            <span className="text-gray-700 font-medium text-base sm:text-lg text-center">{t.emergencyContactsDesc}</span>
           </div>
         </InfoCard>
       </div>

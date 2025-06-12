@@ -25,15 +25,16 @@ export const FormInput: React.FC<FormInputProps> = ({ placeholder, showEmailSugg
   };
 
   return (
-    <div className="relative w-[358px] mx-auto my-2.5">
-      <div className="w-full h-[65px] flex items-center bg-white px-5 py-0 rounded-[20px_0]">
+    <div className="relative w-full max-w-[358px] mx-auto my-2.5">
+      <div className="w-full min-h-[65px] flex items-center bg-white px-4 py-3 rounded-[20px_0]">
         <input
-          className="w-full h-full text-xl text-[rgba(0,0,0,0.54)] border-[none] focus:outline-none"
+          className="w-full h-full text-base sm:text-lg text-[rgba(0,0,0,0.54)] border-[none] focus:outline-none"
           placeholder={placeholder}
           value={value}
           onChange={onChange}
           onFocus={() => showEmailSuggestions && placeholder.includes('e-mail') && setShowSuggestions(true)}
           onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+          style={{ fontSize: '16px' }} // Prevents zoom on iOS
           {...props}
         />
       </div>
@@ -43,7 +44,7 @@ export const FormInput: React.FC<FormInputProps> = ({ placeholder, showEmailSugg
           {emailSuggestions.map((suggestion, index) => (
             <div
               key={index}
-              className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700"
+              className="px-4 py-3 hover:bg-gray-100 cursor-pointer text-gray-700 touch-manipulation"
               onClick={() => handleEmailSuggestionClick(suggestion)}
             >
               {suggestion}

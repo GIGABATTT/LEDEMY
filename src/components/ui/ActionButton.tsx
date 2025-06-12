@@ -8,7 +8,7 @@ interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const ActionButton: React.FC<ActionButtonProps> = ({ children, ...props }) => {
   return (
     <button 
-      className="w-[226px] h-[87px] text-white text-2xl cursor-pointer mx-auto my-5 rounded-[27px] border-[none] btn-gradient btn-click-animation flex items-center justify-center"
+      className="w-full max-w-[280px] min-h-[60px] text-white text-lg sm:text-xl cursor-pointer mx-auto my-4 rounded-[27px] border-[none] btn-gradient btn-click-animation flex items-center justify-center touch-manipulation px-6 py-3"
       {...props}
     >
       {children}
