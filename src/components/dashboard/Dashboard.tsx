@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { DashboardCard } from '../ui/DashboardCard';
 import { InfoCard } from '../ui/InfoCard';
@@ -18,6 +17,7 @@ interface DashboardProps {
   onNavigateToPharmacies?: () => void;
   onNavigateToEmergencyContacts?: () => void;
   onNavigateToProfile?: () => void;
+  onNavigateToHelp?: () => void;
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ 
@@ -26,7 +26,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
   onNavigateToReminders,
   onNavigateToPharmacies,
   onNavigateToEmergencyContacts,
-  onNavigateToProfile
+  onNavigateToProfile,
+  onNavigateToHelp
 }) => {
   const { t } = useLanguage();
   const { userName } = useUser();
@@ -62,6 +63,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
   const handleProfileClick = () => {
     if (onNavigateToProfile) {
       onNavigateToProfile();
+    }
+  };
+
+  const handleHelpClick = () => {
+    if (onNavigateToHelp) {
+      onNavigateToHelp();
     }
   };
 
@@ -109,6 +116,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer hover:bg-gray-100 px-4 py-3 text-gray-700">
                 Configurações
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={handleHelpClick}
+                className="cursor-pointer hover:bg-gray-100 px-4 py-3 text-gray-700"
+              >
+                Ajuda
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -187,45 +200,4 @@ export const Dashboard: React.FC<DashboardProps> = ({
               xmlns="http://www.w3.org/2000/svg" 
               className="contact-icon transition-transform duration-300 hover:rotate-12"
             >
-              <path d="M25.3333 16C25.3333 13.4 24.4278 11.1944 22.6167 9.38333C20.8056 7.57222 18.6 6.66667 16 6.66667V4C17.6667 4 19.2278 4.31667 20.6833 4.95C22.1389 5.58333 23.4056 6.43889 24.4833 7.51667C25.5611 8.59444 26.4167 9.86111 27.05 11.3167C27.6833 12.7722 28 14.3333 28 16H25.3333ZM20 16C20 14.8889 19.6111 13.9444 18.8333 13.1667C18.0556 12.3889 17.1111 12 16 12V9.33333C17.8444 9.33333 19.4167 9.98333 20.7167 11.2833C22.0167 12.5833 22.6667 14.1556 22.6667 16H20ZM26.6 28C23.8222 28 21.0778 27.3944 18.3667 26.1833C15.6556 24.9722 13.1889 23.2556 10.9667 21.0333C8.74444 18.8111 7.02778 16.3444 5.81667 13.6333C4.60556 10.9222 4 8.17778 4 5.4C4 5 4.13333 4.66667 4.4 4.4C4.66667 4.13333 5 4 5.4 4H10.8C11.1111 4 11.3889 4.10556 11.6333 4.31667C11.8778 4.52778 12.0222 4.77778 12.0667 5.06667L12.9333 9.73333C12.9778 10.0889 12.9667 10.3889 12.9 10.6333C12.8333 10.8778 12.7111 11.0889 12.5333 11.2667L9.3 14.5333C9.74444 15.3556 10.2722 16.15 10.8833 16.9167C11.4944 17.6833 12.1667 18.4222 12.9 19.1333C13.5889 19.8222 14.3111 20.4611 15.0667 21.05C15.8222 21.6389 16.6222 22.1778 17.4667 22.6667L20.6 19.5333C20.8 19.3333 21.0611 19.1833 21.3833 19.0833C21.7056 18.9833 22.0222 18.9556 22.3333 19L26.9333 19.9333C27.2444 20.0222 27.5 20.1833 27.7 20.4167C27.9 20.65 28 20.9111 28 21.2V26.6C28 27 27.8667 27.3333 27.6 27.6C27.3333 27.8667 27 28 26.6 28ZM8.03333 12L10.2333 9.8L9.66667 6.66667H6.7C6.81111 7.57778 6.96667 8.47778 7.16667 9.36667C7.36667 10.2556 7.65556 11.1333 8.03333 12ZM19.9667 23.9333C20.8333 24.3111 21.7167 24.6111 22.6167 24.8333C23.5167 25.0556 24.4222 25.2 25.3333 25.2667V22.3333L22.2 21.7L19.9667 23.9333Z" 
-              fill="#01015E"
-              />
-            </svg>
-          }
-          text="Contatos de emergência"
-          onClick={handleEmergencyContactsClick}
-        />
-      </div>
-      
-      <div className="text-black text-[32px] text-center mx-0 my-10">
-        {t.howToUse}
-      </div>
-      
-      <div className="flex flex-col gap-5 p-5 items-center">
-        <InfoCard>
-          <div className="flex items-center gap-4 animate-fade-in hover:scale-105 transition-all duration-300">
-            <span className="text-gray-700 font-medium">{t.searchSymptomsDesc}</span>
-          </div>
-        </InfoCard>
-        
-        <InfoCard>
-          <div className="flex items-center gap-4 animate-fade-in hover:scale-105 transition-all duration-300" style={{ animationDelay: '0.1s' }}>
-            <span className="text-gray-700 font-medium">{t.setRemindersDesc}</span>
-          </div>
-        </InfoCard>
-        
-        <InfoCard>
-          <div className="flex items-center gap-4 animate-fade-in hover:scale-105 transition-all duration-300" style={{ animationDelay: '0.2s' }}>
-            <span className="text-gray-700 font-medium">{t.nearbyPharmaciesDesc}</span>
-          </div>
-        </InfoCard>
-        
-        <InfoCard>
-          <div className="flex items-center gap-4 animate-fade-in hover:scale-105 transition-all duration-300" style={{ animationDelay: '0.3s' }}>
-            <span className="text-gray-700 font-medium">{t.emergencyContactsDesc}</span>
-          </div>
-        </InfoCard>
-      </div>
-    </div>
-  );
-};
+              <path d="M25.3333 16C25.3333 13.4 24.4278 11.1944 22.6167 9.38333C20.8056 7.57222 18.6 6.66667 16 6.66667V4C17.6667 4 19.2278 4.31667 20.6833 4.95C22.1389 5.58333 23.4056 6.43889 24.4833 7.51667C25.5611 8.59444 26.4167 9.86111 27.05 11.3167C27.6833 12.7722 28 14.3333 28 16H25.3333ZM20 16C20 14.8889 19.6111 13.9444 18.8333 13.1667C18.0556 12.3889 17.1111 12 16 12V9.33333C17.8444 9.33333 19.4167 9.98333 20.7167 11.2833C22.0167 12.5833 22.6667 14.1556 22.6667 16H20ZM26.6 28C23.8222 28 21.0778 27.3944 18.3667 26.1833C15.6556 24.9722 13.1889 23.2556 10.9667 21.0333C8.74444 18.8111 7.02778 16.3444 5.81667 13.6333C4.60556 10.9222 4 8.17778 4 5.4C4 5 4.13333 4.66667 4.4 4.4C4.66667 4.13333 5 4 5.4 4H10.8C11.1111 4 11.3889 4.10556 11.6333 4.31667C11.8778 4.52778 12.0222 4.77778 12.0667 5.06667L12.9333 9.73333C12.9778 10.0889 12.9667 10.3889 12.9 10.6333C12.8333 10.8778 12.7111 11.0889 12.5333 11.2667L9.3 14.5333C9.74444 15.3556 10.2722 16.15 

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegistrationForm } from '../components/auth/RegistrationForm';
@@ -12,6 +13,7 @@ import { DescribeSymptoms } from '../components/symptoms/DescribeSymptoms';
 import { DescribeDisease } from '../components/symptoms/DescribeDisease';
 import { NearbyPharmacies } from '../components/map/NearbyPharmacies';
 import { EmergencyContacts } from '../components/contacts/EmergencyContacts';
+import { HelpScreen } from '../components/help/HelpScreen';
 import { UserProvider } from '../contexts/UserContext';
 import { LanguageProvider } from '../contexts/LanguageContext';
 import { ProfileInformation } from '../components/profile/ProfileInformation';
@@ -35,7 +37,8 @@ enum AppScreen {
   REMINDERS,
   NEARBY_PHARMACIES,
   EMERGENCY_CONTACTS,
-  PROFILE
+  PROFILE,
+  HELP
 }
 
 const Index: React.FC = () => {
@@ -62,6 +65,7 @@ const Index: React.FC = () => {
   const handleDescribeDisease = () => setCurrentScreen(AppScreen.DESCRIBE_DISEASE);
   const handleBackToSymptomsMain = () => setCurrentScreen(AppScreen.SYMPTOMS_SEARCH_MAIN);
   const handleNavigateToProfile = () => setCurrentScreen(AppScreen.PROFILE);
+  const handleNavigateToHelp = () => setCurrentScreen(AppScreen.HELP);
 
   return (
     <LanguageProvider>
@@ -121,6 +125,7 @@ const Index: React.FC = () => {
               onNavigateToPharmacies={handleNavigateToPharmacies}
               onNavigateToEmergencyContacts={handleNavigateToEmergencyContacts}
               onNavigateToProfile={handleNavigateToProfile}
+              onNavigateToHelp={handleNavigateToHelp}
             />
           )}
           
@@ -167,6 +172,12 @@ const Index: React.FC = () => {
           {currentScreen === AppScreen.PROFILE && (
             <ProfileInformation 
               onBackToDashboard={handleBackToDashboard}
+            />
+          )}
+
+          {currentScreen === AppScreen.HELP && (
+            <HelpScreen 
+              onBack={handleBackToDashboard}
             />
           )}
         </div>
