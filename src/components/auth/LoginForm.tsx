@@ -11,30 +11,14 @@ import { Eye, EyeOff } from 'lucide-react';
 
 interface LoginFormProps {
   onRegister: () => void;
-  onLoginSuccess?: () => void;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onRegister, onLoginSuccess }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ onRegister }) => {
   const { t } = useLanguage();
   const { userEmail, userPassword, setUserEmail, setUserPassword } = useUser();
   const [localEmail, setLocalEmail] = useState(userEmail);
   const [localPassword, setLocalPassword] = useState(userPassword);
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleLoginClick = () => {
-    // Salva os dados de login
-    setUserEmail(localEmail);
-    setUserPassword(localPassword);
-    console.log('Login data saved:', { email: localEmail, password: localPassword });
-    
-    // Verifica se as credenciais existem (usuário já registrado)
-    if (localEmail && localPassword) {
-      console.log('Login successful, redirecting to dashboard');
-      if (onLoginSuccess) {
-        onLoginSuccess();
-      }
-    }
-  };
 
   const handleRegisterClick = () => {
     setUserEmail(localEmail);
@@ -83,15 +67,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onRegister, onLoginSuccess
           <LinkText href="#">{t.termsOfService}</LinkText>
         </div>
         
-        <ActionButton onClick={handleLoginClick}>
-          Fazer Login
+        <ActionButton onClick={handleRegisterClick}>
+          {t.registerButton}
         </ActionButton>
-        
-        <div className="mt-4">
-          <LinkText href="#" onClick={handleRegisterClick}>
-            Não tem uma conta? Registrar-se
-          </LinkText>
-        </div>
       </div>
     </div>
   );
