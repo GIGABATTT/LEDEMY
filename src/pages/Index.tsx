@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegistrationForm } from '../components/auth/RegistrationForm';
@@ -47,6 +46,7 @@ const Index: React.FC = () => {
   // Navigation handlers
   const handleRegister = () => setCurrentScreen(AppScreen.REGISTRATION);
   const handleBackToLogin = () => setCurrentScreen(AppScreen.LOGIN);
+  const handleLoginSuccess = () => setCurrentScreen(AppScreen.DASHBOARD);
   const handleContinueToMedical = () => setCurrentScreen(AppScreen.MEDICAL_INFO);
   const handleBackToRegistration = () => setCurrentScreen(AppScreen.REGISTRATION);
   const handleContinueToPlan = () => setCurrentScreen(AppScreen.PLAN_SELECTION);
@@ -74,7 +74,10 @@ const Index: React.FC = () => {
           <style>{fontStyles}</style>
           
           {currentScreen === AppScreen.LOGIN && (
-            <LoginForm onRegister={handleRegister} />
+            <LoginForm 
+              onRegister={handleRegister}
+              onLoginSuccess={handleLoginSuccess}
+            />
           )}
           
           {currentScreen === AppScreen.REGISTRATION && (
