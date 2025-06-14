@@ -10,10 +10,9 @@ import { useLanguage } from '../../contexts/LanguageContext';
 interface RegistrationFormProps {
   onBack: () => void;
   onContinue: () => void;
-  onGoToLogin: () => void;
 }
 
-export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onContinue, onGoToLogin }) => {
+export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onContinue }) => {
   const { t } = useLanguage();
   const { 
     userName, userAge, userPathology, userEmergencyContact, userAddress,
@@ -115,13 +114,6 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onCo
         <ActionButton onClick={handleContinue}>
           {t.continueButton}
         </ActionButton>
-
-        {/* Botão de Login */}
-        <div className="mt-4">
-          <LinkText href="#" onClick={onGoToLogin} className="text-lg font-medium">
-            Já tem uma conta? Fazer login
-          </LinkText>
-        </div>
       </div>
 
       {/* Easter Egg Popup Super Divertido */}
