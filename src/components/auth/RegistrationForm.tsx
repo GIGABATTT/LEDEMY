@@ -6,6 +6,7 @@ import { LinkText } from '../ui/LinkText';
 import { AppLogo } from '../ui/AppLogo';
 import { useUser } from '../../contexts/UserContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { Eye, EyeOff } from 'lucide-react';
 
 interface RegistrationFormProps {
   onBack: () => void;
@@ -15,15 +16,15 @@ interface RegistrationFormProps {
 export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onContinue }) => {
   const { t } = useLanguage();
   const { 
-    userName, userAge, userPathology, userEmergencyContact, userAddress,
-    setUserName, setUserAge, setUserPathology, setUserEmergencyContact, setUserAddress 
+    userName, userAge, userEmail, userPassword,
+    setUserName, setUserAge, setUserEmail, setUserPassword 
   } = useUser();
   
   const [localName, setLocalName] = useState(userName);
   const [localAge, setLocalAge] = useState(userAge);
-  const [localPathology, setLocalPathology] = useState(userPathology);
-  const [localEmergencyContact, setLocalEmergencyContact] = useState(userEmergencyContact);
-  const [localAddress, setLocalAddress] = useState(userAddress);
+  const [localEmail, setLocalEmail] = useState(userEmail);
+  const [localPassword, setLocalPassword] = useState(userPassword);
+  const [showPassword, setShowPassword] = useState(false);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,17 +39,23 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onCo
   };
 
   const handleContinue = () => {
+    // Validate all fields are filled
+    if (!localName || !localAge || !localEmail || !localPassword) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
+
+    // Save the registration data
     setUserName(localName);
     setUserAge(localAge);
-    setUserPathology(localPathology);
-    setUserEmergencyContact(localEmergencyContact);
-    setUserAddress(localAddress);
+    setUserEmail(localEmail);
+    setUserPassword(localPassword);
+    
     console.log('Registration data saved:', { 
       name: localName, 
       age: localAge, 
-      pathology: localPathology, 
-      emergencyContact: localEmergencyContact, 
-      address: localAddress 
+      email: localEmail,
+      password: localPassword 
     });
     onContinue();
   };
@@ -76,34 +83,42 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onCo
         <form className="w-full flex flex-col items-center">
           <FormInput 
             type="text" 
-            placeholder={t.namePlaceholder}
+            placeholder="Nome completo"
             value={localName}
             onChange={handleNameChange}
+            required
           />
           <FormInput 
             type="text" 
-            placeholder={t.agePlaceholder}
+            placeholder="Idade"
             value={localAge}
             onChange={(e) => setLocalAge(e.target.value)}
+            required
           />
           <FormInput 
-            type="text" 
-            placeholder={t.pathologyPlaceholder}
-            value={localPathology}
-            onChange={(e) => setLocalPathology(e.target.value)}
+            type="email" 
+            placeholder="E-mail"
+            value={localEmail}
+            onChange={(e) => setLocalEmail(e.target.value)}
+            showEmailSuggestions={true}
+            required
           />
-          <FormInput 
-            type="text" 
-            placeholder={t.emergencyContactPlaceholder}
-            value={localEmergencyContact}
-            onChange={(e) => setLocalEmergencyContact(e.target.value)}
-          />
-          <FormInput 
-            type="text" 
-            placeholder={t.addressPlaceholder}
-            value={localAddress}
-            onChange={(e) => setLocalAddress(e.target.value)}
-          />
+          <div className="relative w-full max-w-sm">
+            <FormInput 
+              type={showPassword ? "text" : "password"}
+              placeholder="Senha"
+              value={localPassword}
+              onChange={(e) => setLocalPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
         </form>
         
         <div className="flex flex-col items-center mx-0 my-5">
@@ -112,7 +127,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onBack, onCo
         </div>
         
         <ActionButton onClick={handleContinue}>
-          {t.continueButton}
+          Cadastrar
         </ActionButton>
       </div>
 

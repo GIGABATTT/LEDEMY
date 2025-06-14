@@ -1,7 +1,9 @@
 
 import React, { useState } from 'react';
+import { WelcomeScreen } from '../components/auth/WelcomeScreen';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegistrationForm } from '../components/auth/RegistrationForm';
+import { SimpleLoginForm } from '../components/auth/SimpleLoginForm';
 import { MedicalInfoForm } from '../components/auth/MedicalInfoForm';
 import { PlanSelection } from '../components/premium/PlanSelection';
 import { PremiumPayment } from '../components/premium/PremiumPayment';
@@ -24,7 +26,9 @@ const fontStyles = `
 `;
 
 enum AppScreen {
+  WELCOME,
   LOGIN,
+  SIMPLE_LOGIN,
   REGISTRATION,
   MEDICAL_INFO,
   PLAN_SELECTION,
@@ -42,9 +46,12 @@ enum AppScreen {
 }
 
 const Index: React.FC = () => {
-  const [currentScreen, setCurrentScreen] = useState<AppScreen>(AppScreen.LOGIN);
+  const [currentScreen, setCurrentScreen] = useState<AppScreen>(AppScreen.WELCOME);
 
   // Navigation handlers
+  const handleWelcomeRegister = () => setCurrentScreen(AppScreen.REGISTRATION);
+  const handleWelcomeLogin = () => setCurrentScreen(AppScreen.SIMPLE_LOGIN);
+  const handleBackToWelcome = () => setCurrentScreen(AppScreen.WELCOME);
   const handleRegister = () => setCurrentScreen(AppScreen.REGISTRATION);
   const handleBackToLogin = () => setCurrentScreen(AppScreen.LOGIN);
   const handleContinueToMedical = () => setCurrentScreen(AppScreen.MEDICAL_INFO);
@@ -66,6 +73,7 @@ const Index: React.FC = () => {
   const handleBackToSymptomsMain = () => setCurrentScreen(AppScreen.SYMPTOMS_SEARCH_MAIN);
   const handleNavigateToProfile = () => setCurrentScreen(AppScreen.PROFILE);
   const handleNavigateToHelp = () => setCurrentScreen(AppScreen.HELP);
+  const handleLoginSuccess = () => setCurrentScreen(AppScreen.DASHBOARD);
 
   return (
     <LanguageProvider>
@@ -73,13 +81,27 @@ const Index: React.FC = () => {
         <div className="min-h-screen bg-page-gradient flex flex-col items-center justify-center p-4">
           <style>{fontStyles}</style>
           
+          {currentScreen === AppScreen.WELCOME && (
+            <WelcomeScreen 
+              onRegister={handleWelcomeRegister} 
+              onLogin={handleWelcomeLogin}
+            />
+          )}
+
+          {currentScreen === AppScreen.SIMPLE_LOGIN && (
+            <SimpleLoginForm 
+              onBack={handleBackToWelcome}
+              onLoginSuccess={handleLoginSuccess}
+            />
+          )}
+          
           {currentScreen === AppScreen.LOGIN && (
             <LoginForm onRegister={handleRegister} />
           )}
           
           {currentScreen === AppScreen.REGISTRATION && (
             <RegistrationForm 
-              onBack={handleBackToLogin} 
+              onBack={handleBackToWelcome} 
               onContinue={handleContinueToMedical} 
             />
           )}
