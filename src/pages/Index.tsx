@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegistrationForm } from '../components/auth/RegistrationForm';
+import { SimpleLoginForm } from '../components/auth/SimpleLoginForm';
 import { MedicalInfoForm } from '../components/auth/MedicalInfoForm';
 import { PlanSelection } from '../components/premium/PlanSelection';
 import { PremiumPayment } from '../components/premium/PremiumPayment';
@@ -26,6 +27,7 @@ const fontStyles = `
 enum AppScreen {
   LOGIN,
   REGISTRATION,
+  SIMPLE_LOGIN,
   MEDICAL_INFO,
   PLAN_SELECTION,
   PREMIUM_PAYMENT,
@@ -42,13 +44,15 @@ enum AppScreen {
 }
 
 const Index: React.FC = () => {
-  const [currentScreen, setCurrentScreen] = useState<AppScreen>(AppScreen.LOGIN);
+  const [currentScreen, setCurrentScreen] = useState<AppScreen>(AppScreen.REGISTRATION);
 
   // Navigation handlers
   const handleRegister = () => setCurrentScreen(AppScreen.REGISTRATION);
   const handleBackToLogin = () => setCurrentScreen(AppScreen.LOGIN);
-  const handleContinueToMedical = () => setCurrentScreen(AppScreen.MEDICAL_INFO);
+  const handleGoToLogin = () => setCurrentScreen(AppScreen.SIMPLE_LOGIN);
   const handleBackToRegistration = () => setCurrentScreen(AppScreen.REGISTRATION);
+  const handleLoginSuccess = () => setCurrentScreen(AppScreen.DASHBOARD);
+  const handleContinueToMedical = () => setCurrentScreen(AppScreen.MEDICAL_INFO);
   const handleContinueToPlan = () => setCurrentScreen(AppScreen.PLAN_SELECTION);
   const handleSkipToDashboard = () => setCurrentScreen(AppScreen.DASHBOARD);
   const handleClosePlan = () => setCurrentScreen(AppScreen.DASHBOARD);
@@ -80,7 +84,15 @@ const Index: React.FC = () => {
           {currentScreen === AppScreen.REGISTRATION && (
             <RegistrationForm 
               onBack={handleBackToLogin} 
-              onContinue={handleContinueToMedical} 
+              onContinue={handleContinueToMedical}
+              onGoToLogin={handleGoToLogin}
+            />
+          )}
+
+          {currentScreen === AppScreen.SIMPLE_LOGIN && (
+            <SimpleLoginForm 
+              onBack={handleBackToRegistration}
+              onLoginSuccess={handleLoginSuccess}
             />
           )}
           
