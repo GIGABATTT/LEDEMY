@@ -9,7 +9,114 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      emergency_contacts: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          phone: string
+          photo: string | null
+          relationship: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          phone: string
+          photo?: string | null
+          relationship: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          phone?: string
+          photo?: string | null
+          relationship?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          address: string | null
+          age: string | null
+          allergies: string | null
+          blood_type: string | null
+          created_at: string
+          email: string
+          emergency_contact: string | null
+          health_plan: string | null
+          id: string
+          name: string | null
+          pathology: string | null
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          age?: string | null
+          allergies?: string | null
+          blood_type?: string | null
+          created_at?: string
+          email: string
+          emergency_contact?: string | null
+          health_plan?: string | null
+          id: string
+          name?: string | null
+          pathology?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          age?: string | null
+          allergies?: string | null
+          blood_type?: string | null
+          created_at?: string
+          email?: string
+          emergency_contact?: string | null
+          health_plan?: string | null
+          id?: string
+          name?: string | null
+          pathology?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      reminders: {
+        Row: {
+          created_at: string
+          description: string | null
+          frequency: string
+          id: string
+          is_active: boolean
+          time: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          frequency: string
+          id?: string
+          is_active?: boolean
+          time: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          frequency?: string
+          id?: string
+          is_active?: boolean
+          time?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

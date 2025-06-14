@@ -1,32 +1,61 @@
 
 import React, { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { ActionButton } from '../ui/ActionButton';
 import { ReminderForm } from './ReminderForm';
-import { Plus, Clock, Calendar, Volume2 } from 'lucide-react';
+import { Plus, Clock, Calendar, Volume2, Trash2 } from 'lucide-react';
+import { useReminders } from '../../hooks/useReminders';
+import { toast } from '../ui/use-toast';
 
 interface SymptomsSearchProps {
   onBackToDashboard: () => void;
 }
 
-interface Reminder {
-  id: string;
-  name: string;
-  type: string;
-  time: string;
-  days: string[];
-  dose?: string;
-  sound: string;
-}
-
 export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboard }) => {
   const { t } = useLanguage();
   const [showReminderForm, setShowReminderForm] = useState(false);
-  const [reminders, setReminders] = useState<Reminder[]>([]);
+  const { reminders, loading, addReminder, deleteReminder } = useReminders();
 
-  const handleAddReminder = (reminder: Reminder) => {
-    setReminders(prev => [...prev, reminder]);
-    setShowReminderForm(false);
+  const handleAddReminder = async (reminder: any) => {
+    const { error } = await addReminder({
+      title: reminder.name,
+      description: reminder.type,
+      time: reminder.time,
+      frequency: reminder.days.join(','),
+      is_active: true
+    });
+
+    if (error) {
+      toast({
+        title: "Erro",
+        description: "Não foi possível adicionar o lembrete.",
+        variant: "destructive"
+      });
+    } else {
+      toast({
+        title: "Sucesso",
+        description: "Lembrete adicionado com sucesso!"
+      });
+      setShowReminderForm(false);
+    }
+  };
+
+  const handleDeleteReminder = async (reminderId: string) => {
+    if (confirm('Tem certeza que deseja excluir este lembrete?')) {
+      const { error } = await deleteReminder(reminderId);
+      
+      if (error) {
+        toast({
+          title: "Erro",
+          description: "Não foi possível excluir o lembrete.",
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "Sucesso",
+          description: "Lembrete excluído com sucesso!"
+        });
+      }
+    }
   };
 
   if (showReminderForm) {
@@ -77,20 +106,26 @@ export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboar
         </div>
 
         {/* Lista de lembretes criados */}
-        {reminders.length > 0 && (
+        {loading ? (
+          <div className="flex justify-center py-10">
+            <div className="text-gray-500">Carregando lembretes...</div>
+          </div>
+        ) : reminders.length > 0 && (
           <div className="mt-6 space-y-4">
             <h3 className="text-[#007] text-xl font-bold mb-6">Lembretes criados</h3>
             {reminders.map((reminder) => (
               <div key={reminder.id} className="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h4 className="text-[#007] font-bold text-xl mb-2">{reminder.name}</h4>
+                    <h4 className="text-[#007] font-bold text-xl mb-2">{reminder.title}</h4>
                     
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="bg-blue-50 px-3 py-1 rounded-full">
-                        <span className="text-[#007] text-sm font-medium">{reminder.type}</span>
+                    {reminder.description && (
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="bg-blue-50 px-3 py-1 rounded-full">
+                          <span className="text-[#007] text-sm font-medium">{reminder.description}</span>
+                        </div>
                       </div>
-                    </div>
+                    )}
                     
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 text-gray-700">
@@ -100,17 +135,22 @@ export const SymptomsSearch: React.FC<SymptomsSearchProps> = ({ onBackToDashboar
                       
                       <div className="flex items-center gap-2 text-gray-600">
                         <Calendar className="w-4 h-4 text-[#007]" />
-                        <span className="text-sm">
-                          {reminder.days.map(day => t[day as keyof typeof t]).join(', ')}
-                        </span>
+                        <span className="text-sm">{reminder.frequency}</span>
                       </div>
                       
                       <div className="flex items-center gap-2 text-gray-600">
                         <Volume2 className="w-4 h-4 text-[#007]" />
-                        <span className="text-sm capitalize">{reminder.sound}</span>
+                        <span className="text-sm capitalize">Padrão</span>
                       </div>
                     </div>
                   </div>
+                  
+                  <button
+                    onClick={() => handleDeleteReminder(reminder.id)}
+                    className="bg-red-500 hover:bg-red-600 rounded-full p-2 transition-colors ml-4"
+                  >
+                    <Trash2 size={16} color="white" />
+                  </button>
                 </div>
               </div>
             ))}

@@ -1,70 +1,82 @@
 
-import React, { useState } from 'react';
-import { useUser } from '../../contexts/UserContext';
+import React, { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
+import { useProfile } from '../../hooks/useProfile';
+import { useAuth } from '../../contexts/AuthContext';
+import { toast } from '../ui/use-toast';
 
 interface ProfileInformationProps {
   onBackToDashboard: () => void;
 }
 
 export const ProfileInformation: React.FC<ProfileInformationProps> = ({ onBackToDashboard }) => {
-  const {
-    userEmail,
-    userPassword,
-    userName,
-    userAge,
-    userPathology,
-    userEmergencyContact,
-    userAddress,
-    userBloodType,
-    userAllergies,
-    userHealthPlan,
-    setUserName,
-    setUserAge,
-    setUserPathology,
-    setUserEmergencyContact,
-    setUserAddress,
-    setUserBloodType,
-    setUserAllergies,
-    setUserHealthPlan,
-  } = useUser();
-
+  const { profile, loading, updateProfile } = useProfile();
+  const { user, signOut } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [editValues, setEditValues] = useState({
-    name: userName,
-    age: userAge,
-    pathology: userPathology,
-    emergencyContact: userEmergencyContact,
-    address: userAddress,
-    bloodType: userBloodType,
-    allergies: userAllergies,
-    healthPlan: userHealthPlan,
+    name: '',
+    age: '',
+    pathology: '',
+    emergency_contact: '',
+    address: '',
+    blood_type: '',
+    allergies: '',
+    health_plan: '',
   });
 
-  const handleSave = () => {
-    setUserName(editValues.name);
-    setUserAge(editValues.age);
-    setUserPathology(editValues.pathology);
-    setUserEmergencyContact(editValues.emergencyContact);
-    setUserAddress(editValues.address);
-    setUserBloodType(editValues.bloodType);
-    setUserAllergies(editValues.allergies);
-    setUserHealthPlan(editValues.healthPlan);
-    setIsEditing(false);
+  useEffect(() => {
+    if (profile) {
+      setEditValues({
+        name: profile.name || '',
+        age: profile.age || '',
+        pathology: profile.pathology || '',
+        emergency_contact: profile.emergency_contact || '',
+        address: profile.address || '',
+        blood_type: profile.blood_type || '',
+        allergies: profile.allergies || '',
+        health_plan: profile.health_plan || '',
+      });
+    }
+  }, [profile]);
+
+  const handleSave = async () => {
+    const { error } = await updateProfile(editValues);
+    
+    if (error) {
+      toast({
+        title: "Erro",
+        description: "Não foi possível salvar as informações.",
+        variant: "destructive"
+      });
+    } else {
+      toast({
+        title: "Sucesso",
+        description: "Informações atualizadas com sucesso!"
+      });
+      setIsEditing(false);
+    }
   };
 
   const handleCancel = () => {
-    setEditValues({
-      name: userName,
-      age: userAge,
-      pathology: userPathology,
-      emergencyContact: userEmergencyContact,
-      address: userAddress,
-      bloodType: userBloodType,
-      allergies: userAllergies,
-      healthPlan: userHealthPlan,
-    });
+    if (profile) {
+      setEditValues({
+        name: profile.name || '',
+        age: profile.age || '',
+        pathology: profile.pathology || '',
+        emergency_contact: profile.emergency_contact || '',
+        address: profile.address || '',
+        blood_type: profile.blood_type || '',
+        allergies: profile.allergies || '',
+        health_plan: profile.health_plan || '',
+      });
+    }
     setIsEditing(false);
+  };
+
+  const handleSignOut = async () => {
+    if (confirm('Tem certeza que deseja sair?')) {
+      await signOut();
+    }
   };
 
   const renderField = (label: string, value: string, fieldKey: keyof typeof editValues, placeholder: string) => (
@@ -87,6 +99,14 @@ export const ProfileInformation: React.FC<ProfileInformationProps> = ({ onBackTo
       )}
     </div>
   );
+
+  if (loading) {
+    return (
+      <div className="w-full max-w-[412px] mx-auto min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-gray-500">Carregando perfil...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-[412px] mx-auto min-h-screen bg-gray-100">
@@ -145,27 +165,18 @@ export const ProfileInformation: React.FC<ProfileInformationProps> = ({ onBackTo
               E-mail
             </label>
             <div className="w-full px-3 py-2 border border-gray-200 rounded-md bg-gray-50 min-h-[40px] flex items-center">
-              {userEmail || <span className="text-gray-400 italic">E-mail não informado</span>}
+              {user?.email || <span className="text-gray-400 italic">E-mail não informado</span>}
             </div>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Senha
-            </label>
-            <div className="w-full px-3 py-2 border border-gray-200 rounded-md bg-gray-50 min-h-[40px] flex items-center">
-              {userPassword ? '•'.repeat(8) : <span className="text-gray-400 italic">Senha não informada</span>}
-            </div>
-          </div>
-
-          {renderField('Nome', userName, 'name', 'Informe seu nome completo')}
-          {renderField('Idade', userAge, 'age', 'Informe sua idade')}
-          {renderField('Patologia', userPathology, 'pathology', 'Informe patologias conhecidas')}
-          {renderField('Contato de emergência', userEmergencyContact, 'emergencyContact', 'Informe um contato de emergência')}
-          {renderField('Endereço', userAddress, 'address', 'Informe seu endereço completo')}
-          {renderField('Tipo sanguíneo', userBloodType, 'bloodType', 'Ex: O+, A-, B+, AB-')}
-          {renderField('Alergias', userAllergies, 'allergies', 'Informe alergias conhecidas')}
-          {renderField('Plano de saúde', userHealthPlan, 'healthPlan', 'Informe seu plano de saúde')}
+          {renderField('Nome', editValues.name, 'name', 'Informe seu nome completo')}
+          {renderField('Idade', editValues.age, 'age', 'Informe sua idade')}
+          {renderField('Patologia', editValues.pathology, 'pathology', 'Informe patologias conhecidas')}
+          {renderField('Contato de emergência', editValues.emergency_contact, 'emergency_contact', 'Informe um contato de emergência')}
+          {renderField('Endereço', editValues.address, 'address', 'Informe seu endereço completo')}
+          {renderField('Tipo sanguíneo', editValues.blood_type, 'blood_type', 'Ex: O+, A-, B+, AB-')}
+          {renderField('Alergias', editValues.allergies, 'allergies', 'Informe alergias conhecidas')}
+          {renderField('Plano de saúde', editValues.health_plan, 'health_plan', 'Informe seu plano de saúde')}
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -174,6 +185,16 @@ export const ProfileInformation: React.FC<ProfileInformationProps> = ({ onBackTo
             <div className="w-full px-3 py-2 border border-gray-200 rounded-md bg-gray-50 min-h-[40px] flex items-center">
               <span className="text-gray-600">Básico</span>
             </div>
+          </div>
+
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <Button
+              onClick={handleSignOut}
+              variant="outline"
+              className="w-full text-red-600 border-red-300 hover:bg-red-50"
+            >
+              Sair da Conta
+            </Button>
           </div>
         </div>
       </div>

@@ -1,31 +1,53 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, Menu, Plus, Phone } from 'lucide-react';
+import { ArrowLeft, Menu, Plus, Phone, Trash2 } from 'lucide-react';
 import { AddContactForm } from './AddContactForm';
-
-interface Contact {
-  id: string;
-  name: string;
-  phone: string;
-  relationship: string;
-  photo?: string;
-}
+import { useEmergencyContacts } from '../../hooks/useEmergencyContacts';
+import { toast } from '../ui/use-toast';
 
 interface EmergencyContactsProps {
   onBackToDashboard: () => void;
 }
 
 export const EmergencyContacts: React.FC<EmergencyContactsProps> = ({ onBackToDashboard }) => {
-  const [contacts, setContacts] = useState<Contact[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
+  const { contacts, loading, addContact, deleteContact } = useEmergencyContacts();
 
-  const handleAddContact = (contact: Omit<Contact, 'id'>) => {
-    const newContact = {
-      ...contact,
-      id: Date.now().toString()
-    };
-    setContacts([...contacts, newContact]);
-    setShowAddForm(false);
+  const handleAddContact = async (contact: any) => {
+    const { error } = await addContact(contact);
+    
+    if (error) {
+      toast({
+        title: "Erro",
+        description: "Não foi possível adicionar o contato.",
+        variant: "destructive"
+      });
+    } else {
+      toast({
+        title: "Sucesso",
+        description: "Contato adicionado com sucesso!"
+      });
+      setShowAddForm(false);
+    }
+  };
+
+  const handleDeleteContact = async (contactId: string) => {
+    if (confirm('Tem certeza que deseja excluir este contato?')) {
+      const { error } = await deleteContact(contactId);
+      
+      if (error) {
+        toast({
+          title: "Erro",
+          description: "Não foi possível excluir o contato.",
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "Sucesso",
+          description: "Contato excluído com sucesso!"
+        });
+      }
+    }
   };
 
   const handleCall = (phone: string) => {
@@ -75,7 +97,11 @@ export const EmergencyContacts: React.FC<EmergencyContactsProps> = ({ onBackToDa
 
       {/* Contacts List or Empty State */}
       <div className="px-5 pb-5">
-        {contacts.length === 0 ? (
+        {loading ? (
+          <div className="flex justify-center py-10">
+            <div className="text-gray-500">Carregando contatos...</div>
+          </div>
+        ) : contacts.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20">
             <div className="text-6xl text-gray-300 font-bold opacity-50 mb-2">
               LEDEMY
@@ -102,13 +128,21 @@ export const EmergencyContacts: React.FC<EmergencyContactsProps> = ({ onBackToDa
                     <p className="text-sm text-gray-500">{contact.phone}</p>
                   </div>
                   
-                  {/* Call Button */}
-                  <button
-                    onClick={() => handleCall(contact.phone)}
-                    className="bg-green-500 hover:bg-green-600 rounded-full p-3 transition-colors"
-                  >
-                    <Phone size={20} color="white" />
-                  </button>
+                  {/* Action Buttons */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleCall(contact.phone)}
+                      className="bg-green-500 hover:bg-green-600 rounded-full p-3 transition-colors"
+                    >
+                      <Phone size={16} color="white" />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteContact(contact.id)}
+                      className="bg-red-500 hover:bg-red-600 rounded-full p-3 transition-colors"
+                    >
+                      <Trash2 size={16} color="white" />
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
